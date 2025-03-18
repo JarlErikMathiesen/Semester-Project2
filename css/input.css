@@ -2,7 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --emerald-green: #025e4c;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  padding: 10px;
+  background-color: var(--emerald-green);
+}
+
+.nav-header {
+  font-size: larger;
+  color: white;
+}
+
+.nav-header-hamburger {
+  right: 10px;
+  top: 65px;
+  background-color: var(--emerald-green);
+  padding: 15px;
+  border-radius: 14px;
+  border-color: black;
+  gap: 15px;
+  border-width: 1px;
+  position: absolute;
+}
+
 h1 {
-  background-color: black;
   font-size: 70px;
+}
+
+h2 {
+  font-size: 35px;
 }
