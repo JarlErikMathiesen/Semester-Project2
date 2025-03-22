@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <script type="module" src="js/components/nav/hamburgermenu.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <title>Profile - Nexus</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  </head>
+  <body>
+    <header class="flex items-center justify-between px-6 py-4 w-full">
+      <a href="index.html">
+        <img src="images/nexus.svg" class="h-12" />
+      </a>
+      <nav
+        role="navigation"
+        class="hidden nav-header nav-header-hamburger gap-10"
+      >
+        <a href="index.html">home</a>
+        <a href="auctions.html">auctions</a>
+        <a href="about.html">about</a>
+        <a href="login.html">login</a>
+        <a href="contact.html">logout</a>
+        <a href="profile.html">profile</a>
+      </nav>
+      <button
+        id="hamburger-btn"
+        class="md:hidden text-2xl ml-4 focus:outline-none"
+      >
+        ☰
+      </button>
+    </header>
+
+    <main
+      class="flex flex-col items-center justify-start py-8 px-4 min-h-[calc(100vh-180px)]"
+    >
+      <div class="max-w-md w-full">
+        <!-- Profile Section -->
+        <div class="shadow-xl rounded-md p-6 mb-6">
+          <h1 class="text-xl font-semibold mb-4">Profile</h1>
+
+          <div class="flex flex-col items-center mb-4">
+            <div
+              class="w-24 h-24 bg-gray-300 rounded-full overflow-hidden mb-2"
+            >
+              <img
+                src="images/profileimage.jpg"
+                alt="Profile avatar"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <div
+              class="cards text-white bg-[var(--antique-gold)] rounded-full px-4 py-1 text-lg"
+            >
+              Credits: 83
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-full mb-4">Change Avatar</button>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <p class="text-sm text-gray-600">Name</p>
+              <p class="font-medium">John Doe</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">User Name</p>
+              <p class="font-medium">Artfan123</p>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <p class="text-sm text-gray-600">Email</p>
+            <p class="font-medium">johndoe@vernisage.org</p>
+          </div>
+
+          <button class="btn btn-primary w-full">Edit Profile</button>
+        </div>
+
+        <!-- Create New Listing Section -->
+        <div class="shadow-xl rounded-md p-6">
+          <h2 class="text-xl font-semibold mb-4">Create new listing</h2>
+
+          <form>
+            <div class="mb-4">
+              <label for="title" class="block mb-1 font-medium">Title</label>
+              <input
+                type="text"
+                id="title"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+                required
+              />
+            </div>
+
+            <button type="button" class="btn btn-primary w-full mb-4">
+              Add Image
+            </button>
+
+            <div class="mb-4">
+              <label for="description" class="block mb-1 font-medium"
+                >Description</label
+              >
+              <textarea
+                id="description"
+                rows="5"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+                required
+              ></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label for="ask-price" class="block mb-1 font-medium"
+                >Ask Price</label
+              >
+              <input
+                type="text"
+                id="ask-price"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+                required
+              />
+            </div>
+
+            <div class="mb-6">
+              <label for="deadline" class="block mb-1 font-medium"
+                >Deadline</label
+              >
+              <div class="relative">
+                <input
+                  type="text"
+                  id="deadline"
+                  value="10.08.25"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+                  required
+                />
+                <div
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M12 6V12L16 16"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full">
+              Create listing
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-white py-6 text-center">
+      <div
+        class="container mx-auto flex flex-col md:flex-row justify-around items-center gap-6"
+      >
+        <div>
+          <h4 class="text-lg font-semibold">Contact</h4>
+          <p class="mt-2 text-gray-300">Email: support@nexus.com</p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold">Follow Us</h4>
+          <div class="mt-2 flex gap-4 justify-center">
+            <a href="#" class="hover:text-gray-400">Facebook</a>
+            <a href="#" class="hover:text-gray-400">Twitter</a>
+            <a href="#" class="hover:text-gray-400">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-sm text-gray-400">
+        &copy; 2025 Nexus. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>
