@@ -24,6 +24,7 @@
         role="navigation"
         class="hidden nav-header nav-header-hamburger gap-10"
       >
+        <a href="index.html">home</a>
         <a href="auctions.html">auctions</a>
         <a href="about.html">about</a>
         <a href="login.html">login</a>
@@ -39,8 +40,25 @@
     </header>
 
     <main>
-      <h1 class="font-bold">Welcome to Nexus</h1>
-      <section class="m-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section
+        class="h-72 bg-cover bg-center flex text-white text-2xl"
+        style="background-image: url(&quot;images/HeroBanner.jpg&quot;)"
+      >
+        <div>
+          <p class="text-7xl font-thin m-5 w-96">Auctions worth your time</p>
+          <a
+            href="register.html"
+            class="hero-button btn btn-secondary font-light"
+          >
+            register
+          </a>
+        </div>
+      </section>
+
+      <section
+        class="m-12 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      >
+        <h1 class="font-bold">Welcome to Nexus</h1>
         <h2 class="col-span-full">Auctions in progress</h2>
         <!-- Item 1 -->
         <div class="grid mb-10">
@@ -57,12 +75,12 @@
                 <h3 class="font-bold border-b w-[90%]">Φ: Canis</h3>
                 <p class="text-gray-600">Alistair Vennholm</p>
               </div>
-              <div class="grid justify-items-end">
+              <div class="grid justify-items-end text-end">
                 <p class="text-sm">Current price</p>
                 <p class="text-2xl">$123</p>
                 <p class="text-sm font-semibold text-gray-300">2 days left</p>
               </div>
-              <button class="border col-span-full mt-10">Bid</button>
+              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
             </div>
           </div>
         </div>
@@ -81,12 +99,12 @@
                 <h3 class="font-bold border-b w-[90%]">Φ: Canis</h3>
                 <p class="text-gray-600">Alistair Vennholm</p>
               </div>
-              <div class="grid justify-items-end">
+              <div class="grid justify-items-end text-end">
                 <p class="text-sm">Current price</p>
                 <p class="text-2xl">$123</p>
                 <p class="text-sm font-semibold text-gray-300">2 days left</p>
               </div>
-              <button class="border col-span-full mt-10">Bid</button>
+              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
             </div>
           </div>
         </div>
@@ -105,51 +123,52 @@
                 <h3 class="font-bold border-b w-[90%]">Φ: Canis</h3>
                 <p class="text-gray-600">Alistair Vennholm</p>
               </div>
-              <div class="grid justify-items-end">
+              <div class="grid justify-items-end text-end">
                 <p class="text-sm">Current price</p>
                 <p class="text-2xl">$123</p>
                 <p class="text-sm font-semibold text-gray-300">2 days left</p>
               </div>
-              <button class="border col-span-full mt-10">Bid</button>
+              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
             </div>
           </div>
         </div>
       </section>
-      <section class="m-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <h2 class="col-span-full">Categories</h2>
+      <section
+        class="m-12 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      >
+        <h2 class="col-span-full">Upcoming auctions</h2>
         <!-- Item 1 -->
-        <h3 class="text-3xl col-span-full">Art</h3>
-        <div class="grid grid-cols-subgrid mb-10">
+        <div class="grid mb-10">
           <div class="grid border border-gray-200 rounded-md overflow-hidden">
-            <div class="">
+            <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover">
               <img
-                src="images/Firefly an abandoned street at night in a small french town 19th century town, a coated figure stand.jpg"
+                src="images/clockowl.jpg"
                 alt="an abandoned street at night in a small french town 19th century town, a coated figure stand"
-                class="w-full h-60 object-cover"
+                class="w-full h-full object-cover"
               />
             </div>
             <div class="p-4 grid grid-cols-2 font-extralight">
               <div class="border-r">
-                <h3 class="font-bold border-b w-[90%]">Φ: Canis</h3>
-                <p class="text-gray-600">Alistair Vennholm</p>
+                <h3 class="font-bold border-b w-[90%]">Untitled #54</h3>
+                <p class="text-gray-600">Genevieve Arrondisement</p>
               </div>
-              <div class="grid justify-items-end">
+              <div class="grid justify-items-end text-end">
                 <p class="text-sm">Current price</p>
                 <p class="text-2xl">$123</p>
                 <p class="text-sm font-semibold text-gray-300">2 days left</p>
               </div>
-              <button class="border col-span-full mt-10">Bid</button>
+              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
             </div>
           </div>
         </div>
         <!-- Item 2 -->
-        <div class="grid grid-cols-subgrid mb-10">
+        <div class="grid mb-10">
           <div class="grid border border-gray-200 rounded-md overflow-hidden">
-            <div class="">
+            <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover">
               <img
                 src="images/canis.jpg"
-                alt="Dog figurine"
-                class="w-full h-60 object-cover"
+                alt="an abandoned street at night in a small french town 19th century town, a coated figure stand"
+                class="w-full h-full object-cover"
               />
             </div>
             <div class="p-4 grid grid-cols-2 font-extralight">
@@ -157,17 +176,126 @@
                 <h3 class="font-bold border-b w-[90%]">Φ: Canis</h3>
                 <p class="text-gray-600">Alistair Vennholm</p>
               </div>
-              <div class="grid justify-items-end">
+              <div class="grid justify-items-end text-end">
                 <p class="text-sm">Current price</p>
                 <p class="text-2xl">$123</p>
                 <p class="text-sm font-semibold text-gray-300">2 days left</p>
               </div>
-              <button class="border col-span-full mt-10">Bid</button>
+              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="grid mb-10">
+          <div class="grid border border-gray-200 rounded-md overflow-hidden">
+            <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover">
+              <img
+                src="images/Firefly an abandoned street at night in a small french town 19th century town, a coated figure stand.jpg"
+                alt="an abandoned street at night in a small french town 19th century town, a coated figure stand"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-4 grid grid-cols-2 font-extralight">
+              <div class="border-r">
+                <h3 class="font-bold border-b w-[90%]">Φ: Canis</h3>
+                <p class="text-gray-600">Alistair Vennholm</p>
+              </div>
+              <div class="grid justify-items-end text-end">
+                <p class="text-sm">Current price</p>
+                <p class="text-2xl">$123</p>
+                <p class="text-sm font-semibold text-gray-300">2 days left</p>
+              </div>
+              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="m-12 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      >
+        <h2 class="col-span-full">Categories</h2>
+        <!-- Item 1 -->
+
+        <div class="grid mb-10">
+          <h3 class="text-3xl col-span-full">Art</h3>
+          <div class="grid border border-gray-200 rounded-md overflow-hidden">
+            <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover">
+              <img
+                src="images/Firefly an abandoned street at night in a small french town 19th century town, a coated figure stand.jpg"
+                alt="an abandoned street at night in a small french town 19th century town, a coated figure stand"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-4 grid grid-cols-2 font-extralight">
+              <p class="truncate col-span-full">
+                Discover exceptional works spanning centuries of creative
+                expression, from Old Master paintings to cutting-edge
+                contemporary pieces. Our carefully curated art auctions feature
+                significant works by established masters and emerging talents
+                alike, each selected for their artistic merit, historical
+                importance, and market relevance. Whether building a focused
+                collection or acquiring a signature piece, find your next
+                artistic treasure within our ever-changing selection of
+                paintings, sculptures, prints, and mixed media works.
+              </p>
+              <button class="btn btn-primary col-span-full mt-10">Art</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 2 -->
+
+        <div class="grid mb-10">
+          <h3 class="text-3xl">Clocks</h3>
+          <div class="grid border border-gray-200 rounded-md overflow-hidden">
+            <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover">
+              <img
+                src="images/Firefly Fancy swiss clock with steel chain; 86681.jpg"
+                alt="Clock"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-4 grid grid-cols-2 font-extralight">
+              <p class="truncate col-span-full">
+                Journey through time with our exceptional horology collection,
+                featuring precision timepieces that showcase centuries of
+                craftsmanship and innovation. From ornate grandfather clocks
+                with intricate complications to sleek modernist designs, each
+                timepiece represents both artistic expression and mechanical
+                ingenuity. Our horology experts select only the finest examples,
+                evaluating movement quality, case design, provenance, and
+                historical significance. These functional sculptures connect
+                collectors to rich traditions of craftsmanship while serving as
+                sophisticated focal points in distinguished spaces.
+              </p>
+              <button class="btn btn-primary col-span-full mt-10">
+                Clocks
+              </button>
             </div>
           </div>
         </div>
       </section>
     </main>
-    <footer></footer>
+    <footer class="text-white py-6 text-center">
+      <div
+        class="container mx-auto flex flex-col md:flex-row justify-around items-center gap-6"
+      >
+        <div>
+          <h4 class="text-lg font-semibold">Contact</h4>
+          <p class="mt-2 text-gray-300">Email: support@nexus.com</p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold">Follow Us</h4>
+          <div class="mt-2 flex gap-4 justify-center">
+            <a href="#" class="hover:text-gray-400">Facebook</a>
+            <a href="#" class="hover:text-gray-400">Twitter</a>
+            <a href="#" class="hover:text-gray-400">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-sm text-gray-400">
+        &copy; 2025 Nexus. All rights reserved.
+      </p>
+    </footer>
   </body>
 </html>

@@ -4,13 +4,34 @@
 
 :root {
   --emerald-green: #025e4c;
+  --emerald-green-hover: #037561;
+  --emerald-green-active: #014a3c;
+
+  --antique-gold: #c5a05a;
+  --antique-gold-hover: #d4b06a;
+  --antique-gold-active: #b6914a;
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-2 rounded-md font-semibold text-white transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--emerald-green)] hover:bg-[var(--emerald-green-hover)] active:bg-[var(--emerald-green-active)];
+  }
+
+  .btn-secondary {
+    @apply bg-[var(--antique-gold)] hover:bg-[var(--antique-gold-hover)] active:bg-[var(--antique-gold-active)];
+  }
 }
 
 body {
   font-family: "Poppins", sans-serif;
 }
 
-header {
+header,
+footer {
   padding: 10px;
   background-color: var(--emerald-green);
 }
@@ -38,4 +59,11 @@ h1 {
 
 h2 {
   font-size: 35px;
+}
+
+.hero-button {
+  position: relative;
+  padding: 10px;
+  left: 270px;
+  bottom: 80px;
 }
