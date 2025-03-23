@@ -5,7 +5,7 @@ hamburgerButton.addEventListener("click", () => {
   navHeader.classList.toggle("hidden");
 });
 
-function updateNavDisplay() {
+export function updateNavDisplay() {
   const isHamburgerHidden =
     window.getComputedStyle(hamburgerButton).display === "none";
 
@@ -17,6 +17,3 @@ function updateNavDisplay() {
     navHeader.classList.remove("flex");
   }
 }
-
-updateNavDisplay();
-window.addEventListener("resize", updateNavDisplay);

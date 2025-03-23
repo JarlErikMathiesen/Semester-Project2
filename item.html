@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <script type="module" src="js/components/nav/hamburgermenu.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <title>Item - Nexus</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  </head>
+  <body>
+    <header class="flex items-center justify-between px-6 py-4 w-full">
+      <a href="index.html">
+        <img src="images/nexus.svg" class="h-12" />
+      </a>
+      <nav
+        role="navigation"
+        class="hidden nav-header nav-header-hamburger gap-10"
+      >
+        <a href="index.html">home</a>
+        <a href="auctions.html">auctions</a>
+        <a href="about.html">about</a>
+        <a href="login.html">login</a>
+        <a href="contact.html">logout</a>
+        <a href="profile.html">profile</a>
+      </nav>
+      <button
+        id="hamburger-btn"
+        class="md:hidden text-2xl ml-4 focus:outline-none"
+      >
+        ☰
+      </button>
+    </header>
+
+    <main
+      class="flex flex-col items-center justify-start py-8 px-4 min-h-[calc(100vh-180px)]"
+    >
+      <div class="max-w-md w-full">
+        <!-- Item Image Section -->
+        <div class="mb-6">
+          <img
+            src="images/canis.jpg"
+            alt="Dog figurine"
+            class="w-full h-auto rounded-md"
+          />
+        </div>
+
+        <!-- Item Details Section -->
+        <div class="mb-6">
+          <div class="flex justify-between items-start mb-2">
+            <h1 class="text-2xl font-semibold">Φ: Canis</h1>
+            <div class="text-sm text-gray-500">2 days left</div>
+          </div>
+
+          <p class="text-gray-700 mb-3">Alistair Vennholm</p>
+
+          <!-- Activity Section -->
+          <div class="border-t pt-4 mb-4">
+            <h2 class="text-lg font-semibold mb-2">Bid History</h2>
+            <ul class="space-y-2">
+              <li class="flex justify-between">
+                <span class="text-gray-700">ArtCollector1980</span>
+                <span class="font-semibold">$21</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-gray-700">GalleryPatron</span>
+                <span class="font-semibold">$20</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-gray-700">TimelessCollector</span>
+                <span class="font-semibold">$19</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-gray-700">Curator_357</span>
+                <span class="font-semibold">$18</span>
+              </li>
+            </ul>
+            <button class="text-[var(--emerald-green)] mt-2 font-medium">
+              more bids...
+            </button>
+          </div>
+
+          <!-- Bid Section -->
+          <div class="border-t pt-4 mb-6">
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-gray-700">Your bid:</span>
+              <div class="flex items-center">
+                <span class="text-xl font-semibold mr-2">$</span>
+                <input
+                  type="number"
+                  class="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+                />
+              </div>
+            </div>
+
+            <p class="text-sm text-gray-600 mb-4">
+              Minimum bid: 24$ or enter your own higher amount
+            </p>
+
+            <button class="btn btn-secondary w-full">Place Bid</button>
+          </div>
+
+          <!-- Item Description -->
+          <div class="border-t pt-4">
+            <p class="text-gray-800 mb-4">
+              A sublime fusion of mathematical precision and organic form, Φ:
+              Canis is a masterful contemporary sculpture by the esteemed artist
+              Alistair Vennholm. Drawing inspiration from the golden ratio (Φ)
+              and the timeless silhouette of man's most loyal companion, this
+              piece transcends mere representation to become a study in balance,
+              proportion, and fluidity. Carved with meticulous precision, the
+              sculpture’s surface is adorned with rhythmic, undulating grooves,
+              creating a mesmerizing interplay of light and shadow. Its
+              monochromatic finish enhances its sculptural depth, allowing the
+              form to shift dynamically with every change in perspective. At
+              once both futuristic and primal, Φ: Canis invites contemplation on
+              the harmony between nature and design. A rare and evocative work,
+              this piece stands as a testament to Vennholm’s ability to merge
+              the philosophical with the tangible—an essential acquisition for
+              collectors of avant-garde sculpture. Height: 75 cm | Medium: Cast
+              resin with lacquered finish | Provenance: Private collection,
+              London
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-white py-6 text-center">
+      <div
+        class="container mx-auto flex flex-col md:flex-row justify-around items-center gap-6"
+      >
+        <div>
+          <h4 class="text-lg font-semibold">Contact</h4>
+          <p class="mt-2 text-gray-300">Email: support@nexus.com</p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold">Follow Us</h4>
+          <div class="mt-2 flex gap-4 justify-center">
+            <a href="#" class="hover:text-gray-400">Facebook</a>
+            <a href="#" class="hover:text-gray-400">Twitter</a>
+            <a href="#" class="hover:text-gray-400">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-sm text-gray-400">
+        &copy; 2025 Nexus. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>
