@@ -10,6 +10,10 @@
   --antique-gold: #c5a05a;
   --antique-gold-hover: #d4ac5b;
   --antique-gold-active: #b6914a;
+
+  --sold-gray: #6d6d6d;
+  --sold-gray-hover: #838383;
+  --sold-gray-active: #636363;
 }
 
 @layer components {
@@ -23,6 +27,10 @@
 
   .btn-secondary {
     @apply bg-[var(--antique-gold)] hover:bg-[var(--antique-gold-hover)] active:bg-[var(--antique-gold-active)];
+  }
+
+  .btn-sold {
+    @apply bg-[var(--sold-gray)]  hover:bg-[var(--sold-gray-hover)] active:bg-[var(--sold-gray-active)];
   }
 
   .cards {

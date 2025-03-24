@@ -1,6 +1,8 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 /* import { getApi, url } from "/js/components/API/fetchAPI.js"; */
 
+updateNavDisplay();
+
 window.addEventListener("resize", updateNavDisplay);
 
 const url = "https://v2.api.noroff.dev/auction/listings";
@@ -27,41 +29,136 @@ async function renderAPI(array) {
 
   const items = array.data;
 
-  console.log(items);
-
   items.forEach((item) => {
-    const title = item.title;
-    const endTime = item.endsAt;
+    const { title, endsAt, media } = item;
 
-    console.log(endTime);
+    const imageFirst = media?.[0]?.url || "images/noimage.webp";
+    const imageFirstAlt = media?.[0]?.alt;
 
-    containerAPI.innerHTML += `
-    <div class="grid mb-10">
-          <div class="grid border border-gray-200 rounded-md overflow-hidden">
-            <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover">
-              <img
-                src="images/Firefly A colorful, simplistic painting of planet Earth engulfed in bright orange and red flames, dr.jpg"
-                alt="an abandoned street at night in a small french town 19th century town, a coated figure stand"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="p-4 grid grid-cols-full font-extralight">
-              <div class="overflow-hidden">
-                <h3 class="truncate font-bold border-b">${title}</h3>
-              </div>
-              <div class="grid grid-flow-col pt-2">
-                <div class="border-r">
-                    <p class="text-base font-semibold">days left</p>
-                    <p class="text-base font-semibold">d${endTime}</p>
-                </div>
-                <div class="justify-items-end text-end">
-                    <p class="text-sm">Current price</p>
-                    <p class="text-2xl">$123</p>
-                </div>
-              </div>
-              <button class="btn btn-secondary col-span-full mt-10">Bid</button>
-            </div>
-          </div>
-        </div>`;
+    function getTimeRemaining(endsAt) {
+      const now = new Date();
+      const endTime = new Date(endsAt);
+      const timeDiff = endTime - now;
+
+      if (timeDiff <= 0) {
+        return "Auction ended";
+      }
+
+      const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
+      const hours = Math.floor((timeDiff / 1000 / 60 / 60) % 24);
+      const days = Math.floor(timeDiff / 1000 / 60 / 60 / 24);
+
+      return days > 0
+        ? `${days} day${days > 1 ? "s" : ""} left`
+        : `${hours}h ${minutes}m left`;
+    }
+
+    let days = getTimeRemaining(endsAt);
+
+    console.log(days);
+
+    // Create the outer div container for the grid
+    const gridElement = document.createElement("div");
+    gridElement.classList.add("grid", "mb-10");
+
+    // Create the main card div
+    const cardElement = document.createElement("div");
+    cardElement.classList.add(
+      "grid",
+      "border",
+      "border-gray-200",
+      "rounded-md",
+      "overflow-hidden",
+    );
+    gridElement.appendChild(cardElement);
+
+    // Create the image container
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add(
+      "w-full",
+      "h-64",
+      "sm:h-72",
+      "md:h-80",
+      "lg:h-96",
+      "object-cover",
+    );
+
+    const imageElement = document.createElement("img");
+    imageElement.src = imageFirst;
+    imageElement.onerror = function () {
+      this.src = "images/noimage.webp";
+    };
+    imageElement.alt = imageFirstAlt;
+    imageElement.classList.add("w-full", "h-full", "object-cover");
+    imageContainer.appendChild(imageElement);
+    cardElement.appendChild(imageContainer);
+
+    // Create the body of the card
+    const cardBodyElement = document.createElement("div");
+    cardBodyElement.classList.add(
+      "p-4",
+      "grid",
+      "grid-cols-full",
+      "font-extralight",
+    );
+    cardElement.appendChild(cardBodyElement);
+
+    // Create the title
+    const titleElement = document.createElement("h3");
+    titleElement.classList.add("truncate", "font-bold", "border-b");
+    titleElement.innerText = title;
+    cardBodyElement.appendChild(titleElement);
+
+    // Create the time and price section
+    const timePriceSection = document.createElement("div");
+    timePriceSection.classList.add("grid", "grid-flow-col", "pt-2");
+
+    const timeElement = document.createElement("div");
+    timeElement.classList.add("border-r");
+
+    const timeTextElement = document.createElement("p");
+    timeTextElement.classList.add("text-base", "font-semibold");
+    timeTextElement.innerText = days;
+    timeElement.appendChild(timeTextElement);
+    timePriceSection.appendChild(timeElement);
+
+    const priceElement = document.createElement("div");
+    priceElement.classList.add("justify-items-end", "text-end");
+
+    const priceLabel = document.createElement("p");
+    priceLabel.classList.add("text-sm");
+    if (days === "Auction ended") {
+      priceLabel.innerText = "Ending bid";
+    } else {
+      priceLabel.innerText = "Current price";
+    }
+    priceElement.appendChild(priceLabel);
+
+    const priceValue = document.createElement("p");
+    priceValue.classList.add("text-2xl");
+    priceValue.innerText = "$123";
+    priceElement.appendChild(priceValue);
+    timePriceSection.appendChild(priceElement);
+
+    cardBodyElement.appendChild(timePriceSection);
+
+    // Create the bid button
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("col-span-full");
+
+    const bidButton = document.createElement("button");
+    if (days === "Auction ended") {
+      bidButton.classList.add("btn", "btn-sold", "w-full", "mt-10");
+      bidButton.innerText = "Auction ended";
+    } else {
+      bidButton.classList.add("btn", "btn-secondary", "w-full", "mt-10");
+      bidButton.innerText = "Bid";
+    }
+
+    buttonContainer.appendChild(bidButton);
+    cardBodyElement.appendChild(buttonContainer);
+
+    // Append the grid element to the container
+    containerAPI.appendChild(gridElement);
   });
 }
