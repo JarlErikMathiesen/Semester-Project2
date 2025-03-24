@@ -30,10 +30,12 @@ async function renderAPI(array) {
   const items = array.data;
 
   items.forEach((item) => {
-    const { title, endsAt, media } = item;
+    const { title, endsAt, media, id } = item;
 
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
+
+    console.log(id);
 
     function getTimeRemaining(endsAt) {
       const now = new Date();
@@ -65,8 +67,7 @@ async function renderAPI(array) {
     const cardElement = document.createElement("div");
     cardElement.classList.add(
       "grid",
-      "border",
-      "border-gray-200",
+      "shadow-xl",
       "rounded-md",
       "overflow-hidden",
     );
@@ -146,12 +147,14 @@ async function renderAPI(array) {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("col-span-full");
 
-    const bidButton = document.createElement("button");
+    const bidButton = document.createElement("a");
+    bidButton.href = `item.html?id=${id}`;
+    bidButton.classList.add("btn", "w-full", "mt-10", "block", "text-center");
     if (days === "Auction ended") {
-      bidButton.classList.add("btn", "btn-sold", "w-full", "mt-10");
+      bidButton.classList.add("btn-sold");
       bidButton.innerText = "Auction ended";
     } else {
-      bidButton.classList.add("btn", "btn-secondary", "w-full", "mt-10");
+      bidButton.classList.add("btn-secondary");
       bidButton.innerText = "Bid";
     }
 
