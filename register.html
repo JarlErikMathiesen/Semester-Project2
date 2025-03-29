@@ -103,9 +103,21 @@
           >
         </p>
       </div>
-      <section id="loaded-html"></section>
     </main>
-
+    <dialog
+      id="data-modal"
+      class="backdrop:bg-black/50 p-6 rounded-lg shadow-lg"
+    >
+      <div class="bg-white p-4 rounded-lg text-center">
+        <p id="loaded-html" class="text-red-600"></p>
+        <button
+          id="data-close-modal"
+          class="mt-4 btn-primary text-white px-4 py-2 rounded hover:bg-gray-800"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
     <footer class="text-white py-6 text-center">
       <div
         class="container mx-auto flex flex-col md:flex-row justify-around items-center gap-6"

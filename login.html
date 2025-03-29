@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
-    <script type="module" src="js/components/nav/hamburgermenu.js"></script>
+    <script type="module" src="js/login.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -65,7 +65,9 @@
             />
           </div>
 
-          <button type="submit" class="btn btn-primary w-full">Login</button>
+          <button type="submit" id="form-button" class="btn btn-primary w-full">
+            Login
+          </button>
         </form>
 
         <p class="text-center mt-4">
@@ -78,6 +80,20 @@
         </p>
       </div>
     </main>
+    <dialog
+      id="data-modal"
+      class="backdrop:bg-black/50 p-6 rounded-lg shadow-lg"
+    >
+      <div class="bg-white p-4 rounded-lg text-center">
+        <p id="loaded-html" class="text-red-600"></p>
+        <button
+          id="data-close-modal"
+          class="mt-4 btn-primary text-white px-4 py-2 rounded hover:bg-gray-800"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
 
     <footer class="text-white py-6 text-center">
       <div

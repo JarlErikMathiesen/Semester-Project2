@@ -1,4 +1,5 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
+import { loginUser, loginUrl } from "./login.js";
 
 updateNavDisplay();
 
@@ -8,8 +9,8 @@ const API_BASE_URL = "https://v2.api.noroff.dev";
 const registerUrl = `${API_BASE_URL}/auth/register`;
 
 /* const user = {
-  name: "test_account_e",
-  email: "test-account-e@noroff.no",
+  name: "test_account_i",
+  email: "test-account-i@noroff.no",
   password: "my-password",
 }; */
 
@@ -54,20 +55,23 @@ async function registerUser(url, data) {
     loadedHtml.innerHTML = "";
 
     if (response.ok) {
-      const appendedHtml = document.createElement("div");
+      loginUser(loginUrl, { email: data.email, password: data.password });
+      /*       const appendedHtml = document.createElement("div");
       const loginButton = document.createElement("button");
+      loginButton.classList.add("btn", "btn-primary", "m-5");
       appendedHtml.innerText = "Registry successful";
       loginButton.innerText = "Login";
       loadedHtml.append(appendedHtml);
       loadedHtml.append(loginButton);
       modal.showModal();
       loginButton.addEventListener("click", () => {
-        window.location.href = "profile.html";
-      });
+        window.location.href = "index.html";
+      }); */
     } else {
       json.errors.forEach((error) => {
         console.log(error.message);
         const appendedHtml = document.createElement("div");
+        appendedHtml.classList.add("mt-2");
         appendedHtml.innerText = error.message;
         loadedHtml.append(appendedHtml);
         modal.showModal();
@@ -83,11 +87,16 @@ closeButton.addEventListener("click", () => {
   modal.close();
 });
 
-/* userPasswordConfirm.addEventListener("input", function () {
-  const password = document.getElementById("password").value;
-  if (password !== this.value) {
-    this.setCustomValidity("Passwords do not match");
-  } else {
-    this.setCustomValidity("");
-  }
-}); */
+/* const showButton = document.querySelector("#showbutton");
+
+showButton.addEventListener("click", () => {
+  const appendedHtml = document.createElement("div");
+  const loginButton = document.createElement("button");
+  loginButton.classList.add("btn", "btn-primary", "m-5");
+  appendedHtml.innerText = "Registry successful";
+  loginButton.innerText = "Login";
+  loadedHtml.append(appendedHtml);
+  loadedHtml.append(loginButton);
+  modal.showModal();
+});
+ */

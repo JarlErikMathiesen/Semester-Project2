@@ -1,50 +1,60 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <script type="module" src="js/profile.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
-    <title>Profile - Nexus</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-  </head>
-  <body>
-    <header class="flex items-center justify-between px-6 py-4 w-full">
-      <a href="index.html">
-        <img src="images/nexus.svg" class="h-12" />
-      </a>
-      <nav
-        role="navigation"
-        class="hidden nav-header nav-header-hamburger gap-10"
-      >
-        <a href="index.html">home</a>
-        <a href="auctions.html">auctions</a>
-        <a href="about.html">about</a>
-        <a href="login.html">login</a>
-        <a href="contact.html">logout</a>
-        <a href="profile.html">profile</a>
-      </nav>
-      <button
-        id="hamburger-btn"
-        class="md:hidden text-2xl ml-4 focus:outline-none"
-      >
-        ☰
-      </button>
-    </header>
+import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 
-    <main
-      class="flex flex-col items-center justify-start py-8 px-4 min-h-[calc(100vh-180px)]"
-    >
-      <section class="loaded-profile max-w-md w-full"></section>
-      <!-- <div class="max-w-md w-full">
+updateNavDisplay();
 
+const API_KEY = "a5f097d9-248c-4c77-b031-072c2064a6a3";
+
+const profileName = localStorage.getItem("userToken");
+
+console.log(profileName);
+
+const profilesUrl = `https://v2.api.noroff.dev/auction/profiles`;
+
+const profileUrl = `https://v2.api.noroff.dev/auction/profiles/${profileName}`;
+
+console.log(profilesUrl);
+
+window.addEventListener("resize", updateNavDisplay);
+
+async function getProfileWithToken(url) {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const getData = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    };
+    const response = await fetch(url, getData);
+    console.log(response);
+    const json = await response.json();
+    console.log(json);
+
+    renderProfile(json);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getProfileWithToken(profileUrl);
+
+function renderProfile(object) {
+  const loadedProfile = document.querySelector(".loaded-profile");
+
+  const item = object.data;
+
+  console.log(item);
+
+  const { avatar, name, credits, email } = item;
+
+  console.log(avatar, name, credits, email);
+
+  console.log(avatar.url);
+
+  loadedProfile.innerHTML = `
+        <!-- Profile Section -->
         <div class="shadow-xl rounded-md p-6 mb-6">
           <h1 class="text-xl font-semibold mb-4">Profile</h1>
           
@@ -55,8 +65,8 @@
               class="w-24 h-24 bg-gray-300 rounded-full overflow-hidden mb-2"
             >
               <img
-                src="images/profileimage.jpg"
-                alt="Profile avatar"
+                src=${avatar.url}
+                alt=${avatar.alt}
                 class="w-full h-full object-cover"
               />
             </div>
@@ -64,7 +74,7 @@
             <div
               class="cards text-white bg-[var(--antique-gold)] rounded-full px-4 py-1 text-lg"
             >
-              Credits: 83
+              Credits: ${credits}
             </div>
           </div>
 
@@ -73,7 +83,7 @@
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
               <p class="text-sm text-gray-600">Name</p>
-              <p class="font-medium">John Doe</p>
+              <p class="font-medium">${name}</p>
             </div>
             <div>
               <p class="text-sm text-gray-600">User Name</p>
@@ -83,12 +93,13 @@
 
           <div class="mb-4">
             <p class="text-sm text-gray-600">Email</p>
-            <p class="font-medium">johndoe@vernisage.org</p>
+            <p class="font-medium">${email}</p>
           </div>
 
           <button class="btn btn-primary w-full">Edit Profile</button>
         </div>
 
+        <!-- Create New Listing Section -->
         <div class="shadow-xl rounded-md p-6">
           <h2 class="text-xl font-semibold mb-4">Create new listing</h2>
 
@@ -175,31 +186,5 @@
               Create listing
             </button>
           </form>
-        </div>
-      </div> -->
-    </main>
-
-    <footer class="text-white py-6 text-center">
-      <div
-        class="container mx-auto flex flex-col md:flex-row justify-around items-center gap-6"
-      >
-        <div>
-          <h4 class="text-lg font-semibold">Contact</h4>
-          <p class="mt-2 text-gray-300">Email: support@nexus.com</p>
-        </div>
-
-        <div>
-          <h4 class="text-lg font-semibold">Follow Us</h4>
-          <div class="mt-2 flex gap-4 justify-center">
-            <a href="#" class="hover:text-gray-400">Facebook</a>
-            <a href="#" class="hover:text-gray-400">Twitter</a>
-            <a href="#" class="hover:text-gray-400">Instagram</a>
-          </div>
-        </div>
-      </div>
-      <p class="mt-6 text-sm text-gray-400">
-        &copy; 2025 Nexus. All rights reserved.
-      </p>
-    </footer>
-  </body>
-</html>
+        </div>`;
+}
