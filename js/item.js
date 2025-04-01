@@ -155,7 +155,6 @@ async function renderItem(object) {
 
   const bidHistoryList = document.createElement("ul");
 
-  // Assuming bids exist in the API response
   if (item.bids && item.bids.length > 0) {
     item.bids.forEach((bid) => {
       const bidEntry = document.createElement("li");

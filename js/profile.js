@@ -110,8 +110,6 @@ function renderProfile(object) {
   profileSection.appendChild(changeAvatarButton);
 
   changeAvatarButton.addEventListener("click", () => {
-    console.log("hullo there");
-
     let avatarInput = document.querySelector("#avatarInput");
     let submitButton = document.querySelector("#submitButton");
 
@@ -155,8 +153,6 @@ function renderProfile(object) {
         } catch (error) {
           console.error("Error editing post:", error);
         }
-        avatarInput.style.display = "none";
-        submitButton.style.display = "none";
       });
     }
   });
@@ -179,10 +175,72 @@ function renderProfile(object) {
   <p class="font-medium">${email}</p>`;
   profileSection.appendChild(emailDiv);
 
-  const editProfileButton = document.createElement("button");
-  editProfileButton.className = "btn btn-primary w-full";
+  /* const editProfileButton = document.createElement("button");
+  editProfileButton.className = "btn btn-primary w-full mb-4";
   editProfileButton.textContent = "Edit Profile";
   profileSection.appendChild(editProfileButton);
+
+  editProfileButton.addEventListener("click", () => {
+    console.log("hello there");
+    let editNameInput = document.querySelector("#editNameInput");
+    let editEmailInput = document.querySelector("#editEmailInput");
+    let editSubmitButton = document.querySelector("#submitButton");
+    if (editNameInput && submitButton) {
+      editNameInput.remove();
+      editEmailInput.remove();
+      editSubmitButton.remove();
+    } else {
+      editNameInput = document.createElement("input");
+      editNameInput.id = "editNameInput";
+      editNameInput.type = "text";
+      editNameInput.placeholder = "Enter new name...";
+      editNameInput.className =
+        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)] mb-4";
+
+      editEmailInput = document.createElement("input");
+      editEmailInput.id = "editEmailInput";
+      editEmailInput.type = "text";
+      editEmailInput.placeholder = "Enter new email...";
+      editEmailInput.className =
+        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]";
+
+      editSubmitButton = document.createElement("button");
+      editSubmitButton.id = "submitButton";
+      editSubmitButton.textContent = "Submit";
+      editSubmitButton.className = "btn btn-primary mt-2";
+
+      profileSection.insertBefore(editNameInput, editProfileButton.nextSibling);
+      profileSection.insertBefore(editEmailInput, editNameInput.nextSibling);
+      profileSection.insertBefore(editSubmitButton, editEmailInput.nextSibling);
+
+      editSubmitButton.addEventListener("click", async function () {
+        const newName = editNameInput.value;
+        const newEmail = editEmailInput.value;
+
+        console.log("New name URL:", newName);
+        console.log("New email URL:", newEmail);
+
+        let data = {
+          ...(newName !== "" && { name: newName }),
+          ...(newEmail !== "" && { email: newEmail }),
+        };
+
+        console.log(data);
+        const putOptions = {
+          method: "PUT",
+          headers: fetchHeader,
+          body: JSON.stringify(data),
+        };
+
+        try {
+          await methodWithToken(profileUrl, putOptions);
+          location.reload();
+        } catch (error) {
+          console.error("Error editing post:", error);
+        }
+      });
+    }
+  }); */
 
   const listingSection = document.createElement("div");
   listingSection.className = "shadow-xl rounded-md p-6";
@@ -201,11 +259,13 @@ function renderProfile(object) {
   <input type="text" id="title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]" required>`;
   form.appendChild(titleField);
 
-  const addImageButton = document.createElement("button");
-  addImageButton.type = "button";
-  addImageButton.className = "btn btn-primary w-full mb-4";
-  addImageButton.textContent = "Add Image";
-  form.appendChild(addImageButton);
+  const imageUrlField = document.createElement("div");
+  imageUrlField.className = "mb-4";
+  imageUrlField.innerHTML = `
+  <label for="image-url" class="block mb-1 font-medium">Image URL</label>
+  <input type="text" id="image-url" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]" placeholder="Enter image URL" required>
+`;
+  form.appendChild(imageUrlField);
 
   const descriptionField = document.createElement("div");
   descriptionField.className = "mb-4";
@@ -224,26 +284,78 @@ function renderProfile(object) {
   const deadlineField = document.createElement("div");
   deadlineField.className = "mb-6";
   deadlineField.innerHTML = `
-  <label for="deadline" class="block mb-1 font-medium">Deadline</label>
-  <div class="relative">
-    <input type="text" id="deadline" value="10.08.25" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]" required>
-    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-        <path d="M12 6V12L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+    <label for="deadline" class="block mb-1 font-medium">Deadline</label>
+    <div class="relative">
+      <input type="datetime-local" id="deadline" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]" required>
     </div>
-  </div>`;
+  `;
   form.appendChild(deadlineField);
 
   const createListingButton = document.createElement("button");
   createListingButton.type = "submit";
+  createListingButton.id = "createListingButton";
   createListingButton.className = "btn btn-primary w-full";
   createListingButton.textContent = "Create Listing";
   form.appendChild(createListingButton);
 
   listingSection.appendChild(form);
 
+  createListingButton.addEventListener("click", async function () {
+    const newListingTitle = titleField.querySelector("#title").value;
+    const newListingDescription =
+      descriptionField.querySelector("#description").value;
+
+    const deadlineInput = document.getElementById("deadline");
+    const deadlineValue = new Date(deadlineInput.value).toISOString();
+
+    const newListingImage = imageUrlField.querySelector("#image-url").value;
+
+    event.preventDefault();
+    console.log(newListingTitle);
+    console.log(deadlineValue);
+
+    let data = {
+      ...(newListingTitle !== "" && {
+        title: newListingTitle,
+      }),
+      ...(deadlineValue !== "" && {
+        endsAt: deadlineValue,
+      }),
+      ...(newListingImage !== "" && {
+        media: [{ url: newListingImage, alt: "Item image" }],
+      }),
+      ...(newListingDescription !== "" && {
+        description: newListingDescription,
+      }),
+    };
+
+    console.log(data);
+    const postOptions = {
+      method: "POST",
+      headers: fetchHeader,
+      body: JSON.stringify(data),
+    };
+
+    try {
+      const response = await fetch(
+        "https://v2.api.noroff.dev/auction/listings",
+        postOptions,
+      );
+      const json = await response.json();
+      console.log(json);
+      location.reload();
+    } catch (error) {
+      console.error("Error editing post:", error);
+    }
+  });
+
   loadedProfile.appendChild(profileSection);
   loadedProfile.appendChild(listingSection);
 }
+
+/* await methodWithToken(
+  "https://v2.api.noroff.dev/auction/listings",
+  postOptions,
+);
+console.log(json);
+ */

@@ -5,7 +5,7 @@ updateNavDisplay();
 
 window.addEventListener("resize", updateNavDisplay);
 
-const url = "https://v2.api.noroff.dev/auction/listings";
+const url = "https://v2.api.noroff.dev/auction/listings?_active=true";
 
 async function getApi(url) {
   try {
