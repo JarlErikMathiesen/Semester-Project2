@@ -1,4 +1,8 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
+import { fetchHeader } from "./constants.js";
+import { isLoggedIn } from "./components/nav/navLogin.js";
+
+console.log(isLoggedIn());
 
 updateNavDisplay();
 
@@ -105,6 +109,46 @@ async function renderItem(object) {
   const bidSection = document.createElement("div");
   bidSection.classList.add("border-t", "pt-4", "mb-6");
 
+  const bidHistorySection = document.createElement("div");
+  bidHistorySection.classList.add("border-t", "pt-4", "mb-6");
+
+  const bidHistoryTitle = document.createElement("h2");
+  bidHistoryTitle.classList.add("text-lg", "font-semibold", "mb-2");
+  bidHistoryTitle.textContent = "Bid History";
+
+  const bidHistoryList = document.createElement("ul");
+
+  if (item.bids && item.bids.length > 0) {
+    item.bids.forEach((bid) => {
+      const bidEntry = document.createElement("li");
+      bidEntry.classList.add(
+        "flex",
+        "justify-between",
+        "even:bg-gray-100",
+        "p-2",
+      );
+      bidHistoryList.appendChild(bidEntry);
+      const bidderEntry = document.createElement("span");
+      bidderEntry.classList.add("text-gray-700");
+      bidderEntry.textContent = `${bid.bidder.name}`;
+      bidEntry.appendChild(bidderEntry);
+      const amountEntry = document.createElement("span");
+      amountEntry.classList.add("font-semibold");
+      amountEntry.textContent = `$${bid.amount}`;
+      bidEntry.appendChild(amountEntry);
+    });
+  } else {
+    const noBids = document.createElement("p");
+    noBids.classList.add("text-sm", "text-gray-500");
+    noBids.textContent = "No bids placed yet.";
+    bidHistoryList.appendChild(noBids);
+  }
+
+  bidHistorySection.appendChild(bidHistoryTitle);
+  bidHistorySection.appendChild(bidHistoryList);
+
+  contentContainer.appendChild(bidHistorySection);
+
   const bidHeader = document.createElement("div");
   bidHeader.classList.add("flex", "justify-between", "items-center", "mb-4");
 
@@ -146,50 +190,36 @@ async function renderItem(object) {
   minBidText.textContent = "Minimum bid: 24$ or enter your own higher amount";
   bidSection.appendChild(minBidText);
 
-  const bidHistorySection = document.createElement("div");
-  bidHistorySection.classList.add("border-t", "pt-4", "mb-6");
-
-  const bidHistoryTitle = document.createElement("h2");
-  bidHistoryTitle.classList.add("text-lg", "font-semibold", "mb-2");
-  bidHistoryTitle.textContent = "Bid History";
-
-  const bidHistoryList = document.createElement("ul");
-
-  if (item.bids && item.bids.length > 0) {
-    item.bids.forEach((bid) => {
-      const bidEntry = document.createElement("li");
-      bidEntry.classList.add(
-        "flex",
-        "justify-between",
-        "even:bg-gray-100",
-        "p-2",
-      );
-      bidHistoryList.appendChild(bidEntry);
-      const bidderEntry = document.createElement("span");
-      bidderEntry.classList.add("text-gray-700");
-      bidderEntry.textContent = `${bid.bidder.name}`;
-      bidEntry.appendChild(bidderEntry);
-      const amountEntry = document.createElement("span");
-      amountEntry.classList.add("font-semibold");
-      amountEntry.textContent = `$${bid.amount}`;
-      bidEntry.appendChild(amountEntry);
-    });
-  } else {
-    const noBids = document.createElement("p");
-    noBids.classList.add("text-sm", "text-gray-500");
-    noBids.textContent = "No bids placed yet.";
-    bidHistoryList.appendChild(noBids);
-  }
-
-  bidHistorySection.appendChild(bidHistoryTitle);
-  bidHistorySection.appendChild(bidHistoryList);
-
-  contentContainer.appendChild(bidHistorySection);
-
   const bidButton = document.createElement("button");
   bidButton.classList.add("btn", "btn-secondary", "w-full", "mb-6");
   bidButton.textContent = "Place Bid";
   bidSection.appendChild(bidButton);
+
+  const urlBid = urlId + "/bids";
+
+  console.log(urlBid);
+
+  bidButton.addEventListener("click", async function () {
+    const bidNumber = Number(bidInput.value);
+
+    let data = {
+      ...(bidNumber !== "" && { amount: bidNumber }),
+    };
+    console.log(bidNumber);
+    const postOptions = {
+      method: "POST",
+      headers: fetchHeader,
+      body: JSON.stringify(data),
+    };
+
+    try {
+      const response = await fetch(urlBid, postOptions);
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.error("Error editing post:", error);
+    }
+  });
 
   const descriptionElement = document.createElement("div");
   descriptionElement.classList.add("border-t", "pt-4");
