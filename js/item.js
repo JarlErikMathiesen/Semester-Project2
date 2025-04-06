@@ -1,6 +1,7 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import { fetchHeader } from "./constants.js";
 import { isLoggedIn } from "./components/nav/navLogin.js";
+import { navBarLogStatus } from "./components/nav/navLogin.js";
 
 console.log(isLoggedIn());
 
@@ -8,6 +9,7 @@ updateNavDisplay();
 
 window.addEventListener("resize", updateNavDisplay);
 
+navBarLogStatus();
 const urlPar = new URLSearchParams(document.location.search);
 const id = urlPar.get("id");
 
@@ -44,13 +46,18 @@ async function renderItem(object) {
 
   const item = object.data;
 
+  const sortedBids = item.bids.sort(
+    (a, b) => new Date(b.created) - new Date(a.created),
+  );
+
+  const latestBidPlussOne =
+    sortedBids.length > 0 ? sortedBids[0].amount + 1 : 1;
+  console.log(latestBidPlussOne);
+
   const { title, endsAt, media, description } = item;
 
   const imageFirst = media?.[0]?.url || "images/noimage.webp";
   const imageFirstAlt = media?.[0]?.alt;
-
-  console.log(imageFirst);
-  console.log(imageFirstAlt);
 
   function getTimeRemaining(endsAt) {
     const now = new Date();
@@ -118,8 +125,13 @@ async function renderItem(object) {
 
   const bidHistoryList = document.createElement("ul");
 
-  if (item.bids && item.bids.length > 0) {
-    item.bids.forEach((bid) => {
+  if (!isLoggedIn()) {
+    const notLoggedin = document.createElement("p");
+    notLoggedin.classList.add("text-sm", "text-gray-500");
+    notLoggedin.textContent = "Log in to view bids";
+    bidHistoryList.appendChild(notLoggedin);
+  } else if (item.bids && item.bids.length > 0) {
+    sortedBids.forEach((bid) => {
       const bidEntry = document.createElement("li");
       bidEntry.classList.add(
         "flex",
@@ -127,15 +139,18 @@ async function renderItem(object) {
         "even:bg-gray-100",
         "p-2",
       );
-      bidHistoryList.appendChild(bidEntry);
+
       const bidderEntry = document.createElement("span");
       bidderEntry.classList.add("text-gray-700");
-      bidderEntry.textContent = `${bid.bidder.name}`;
-      bidEntry.appendChild(bidderEntry);
+      bidderEntry.textContent = bid.bidder.name;
+
       const amountEntry = document.createElement("span");
       amountEntry.classList.add("font-semibold");
       amountEntry.textContent = `$${bid.amount}`;
+
+      bidEntry.appendChild(bidderEntry);
       bidEntry.appendChild(amountEntry);
+      bidHistoryList.appendChild(bidEntry);
     });
   } else {
     const noBids = document.createElement("p");
@@ -176,6 +191,8 @@ async function renderItem(object) {
     "focus:ring-1",
     "focus:ring-[var(--emerald-green)]",
   );
+  bidInput.value = latestBidPlussOne;
+  bidInput.min = latestBidPlussOne;
 
   bidInputWrapper.appendChild(bidSymbol);
   bidInputWrapper.appendChild(bidInput);
@@ -187,45 +204,60 @@ async function renderItem(object) {
 
   const minBidText = document.createElement("p");
   minBidText.classList.add("text-sm", "text-gray-600", "mb-4");
-  minBidText.textContent = "Minimum bid: 24$ or enter your own higher amount";
+  minBidText.textContent = `Minimum bid: ${latestBidPlussOne}$ or enter your own higher amount`;
   bidSection.appendChild(minBidText);
 
-  const bidButton = document.createElement("button");
-  bidButton.classList.add("btn", "btn-secondary", "w-full", "mb-6");
-  bidButton.textContent = "Place Bid";
-  bidSection.appendChild(bidButton);
+  if (isLoggedIn()) {
+    const bidButton = document.createElement("button");
+    bidButton.classList.add("btn", "btn-secondary", "w-full", "mb-6");
+    bidButton.textContent = "Place Bid";
+    bidSection.appendChild(bidButton);
+
+    bidButton.addEventListener("click", async function () {
+      const bidNumber = Number(bidInput.value);
+
+      let data = {
+        ...(bidNumber !== "" && { amount: bidNumber }),
+      };
+      console.log(bidNumber);
+      const postOptions = {
+        method: "POST",
+        headers: fetchHeader,
+        body: JSON.stringify(data),
+      };
+
+      try {
+        const response = await fetch(urlBid, postOptions);
+        const json = await response.json();
+        console.log(json);
+      } catch (error) {
+        console.error("Error editing post:", error);
+      }
+    });
+  } else {
+    const loginLink = document.createElement("a");
+    loginLink.href = "login.html";
+    loginLink.textContent = "Log in to place a bid";
+    loginLink.classList.add(
+      "btn",
+      "btn-primary",
+      "w-full",
+      "mb-6",
+      "block",
+      "text-center",
+    );
+    bidSection.appendChild(loginLink);
+  }
 
   const urlBid = urlId + "/bids";
 
   console.log(urlBid);
 
-  bidButton.addEventListener("click", async function () {
-    const bidNumber = Number(bidInput.value);
-
-    let data = {
-      ...(bidNumber !== "" && { amount: bidNumber }),
-    };
-    console.log(bidNumber);
-    const postOptions = {
-      method: "POST",
-      headers: fetchHeader,
-      body: JSON.stringify(data),
-    };
-
-    try {
-      const response = await fetch(urlBid, postOptions);
-      const json = await response.json();
-      console.log(json);
-    } catch (error) {
-      console.error("Error editing post:", error);
-    }
-  });
-
   const descriptionElement = document.createElement("div");
   descriptionElement.classList.add("border-t", "pt-4");
   const descriptionElementP = document.createElement("p");
   descriptionElementP.classList.add("text-gray-800", "mb-4");
-  descriptionElementP.textContent = `${description}`;
+  descriptionElementP.textContent = `${description || "No description"}`;
   descriptionElement.appendChild(descriptionElementP);
   bidSection.appendChild(descriptionElement);
 

@@ -1,9 +1,12 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 /* import { getApi, url } from "/js/components/API/fetchAPI.js"; */
+import { navBarLogStatus } from "./components/nav/navLogin.js";
 
 updateNavDisplay();
 
 window.addEventListener("resize", updateNavDisplay);
+
+navBarLogStatus();
 
 const url = "https://v2.api.noroff.dev/auction/listings?_active=true";
 
@@ -35,8 +38,6 @@ async function renderAPI(array) {
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
 
-    console.log(id);
-
     function getTimeRemaining(endsAt) {
       const now = new Date();
       const endTime = new Date(endsAt);
@@ -56,8 +57,6 @@ async function renderAPI(array) {
     }
 
     let days = getTimeRemaining(endsAt);
-
-    console.log(days);
 
     // Create the outer div container for the grid
     const gridElement = document.createElement("div");
