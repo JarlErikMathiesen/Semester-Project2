@@ -2,8 +2,6 @@ import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 /* import { getApi, url } from "/js/components/API/fetchAPI.js"; */
 import { navBarLogStatus } from "./components/nav/navLogin.js";
 
-updateNavDisplay();
-
 window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();

@@ -1,7 +1,10 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
-import { loginUser, loginUrl } from "./login.js";
+import { loginUser, loginUrl } from "./loginUser.js";
+import { navBarLogStatus } from "./components/nav/navLogin.js";
 
 updateNavDisplay();
+
+navBarLogStatus();
 
 window.addEventListener("resize", updateNavDisplay);
 
@@ -52,7 +55,6 @@ async function registerUser(url, data) {
     console.log(response);
     const json = await response.json();
     console.log(json);
-    loadedHtml.innerHTML = "";
 
     if (response.ok) {
       loginUser(loginUrl, { email: data.email, password: data.password });
@@ -68,6 +70,9 @@ async function registerUser(url, data) {
         window.location.href = "index.html";
       }); */
     } else {
+      while (loadedHtml.firstChild) {
+        loadedHtml.removeChild(loadedHtml.firstChild);
+      }
       json.errors.forEach((error) => {
         console.log(error.message);
         const appendedHtml = document.createElement("div");

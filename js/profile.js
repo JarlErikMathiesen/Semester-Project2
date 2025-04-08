@@ -1,6 +1,11 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
+import { navBarLogStatus } from "./components/nav/navLogin.js";
+
+window.addEventListener("resize", updateNavDisplay);
 
 updateNavDisplay();
+
+navBarLogStatus();
 
 const API_KEY = "a5f097d9-248c-4c77-b031-072c2064a6a3";
 
@@ -15,8 +20,6 @@ const profilesUrl = `https://v2.api.noroff.dev/auction/profiles`;
 const profileUrl = `https://v2.api.noroff.dev/auction/profiles/${profileName}`;
 
 console.log(profilesUrl);
-
-window.addEventListener("resize", updateNavDisplay);
 
 const fetchHeader = {
   "Content-Type": "application/json",

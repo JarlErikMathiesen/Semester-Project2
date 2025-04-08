@@ -10,6 +10,7 @@ updateNavDisplay();
 window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
+
 const urlPar = new URLSearchParams(document.location.search);
 const id = urlPar.get("id");
 
