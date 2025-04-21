@@ -79,3 +79,17 @@ h2 {
   left: 270px;
   bottom: 80px;
 }
+
+.loader {
+  border: 10px solid #d9d9d9;
+  border-top: 10px solid var(--emerald-green);
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

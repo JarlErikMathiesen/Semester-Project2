@@ -2,20 +2,39 @@ import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 /* import { getApi, url } from "/js/components/API/fetchAPI.js"; */
 import { navBarLogStatus } from "./components/nav/navLogin.js";
 
+const url =
+  "https://v2.api.noroff.dev/auction/listings?_bids=true&_active=true&sort=title&sortOrder=asc";
+
+const searchBar = document.querySelector("#search-bar");
+
 window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
 
-const url = "https://v2.api.noroff.dev/auction/listings?_active=true";
+const containerAPI = document.querySelector(".api-container");
+
+function showLoader() {
+  containerAPI.innerHTML = `
+    <div class="loader-container col-span-full flex justify-center items-center min-h-64">
+      <div class="loader animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+    </div>
+  `;
+}
+
+function hideLoader() {
+  containerAPI.innerHTML = "";
+}
 
 async function getApi(url) {
   try {
+    showLoader();
     const response = await fetch(url);
     const json = await response.json();
+    const jsonData = json.data;
 
-    console.log(json);
+    console.log(jsonData);
 
-    renderAPI(json);
+    renderAPI(jsonData);
   } catch (error) {
     console.log(error);
   }
@@ -23,15 +42,25 @@ async function getApi(url) {
 
 getApi(url);
 
-const containerAPI = document.querySelector(".api-container");
-
 async function renderAPI(array) {
   console.log(array);
 
-  const items = array.data;
+  hideLoader();
+  containerAPI.innerHTML = "";
+
+  if (!array.length) {
+    containerAPI.innerHTML = `<p class="text-center text-gray-600 py-10">No results found.</p>`;
+    return;
+  }
+
+  const items = array;
 
   items.forEach((item) => {
-    const { title, endsAt, media, id } = item;
+    const { title, endsAt, media, id, bids } = item;
+
+    const sortedBids = bids.sort(
+      (a, b) => new Date(b.created) - new Date(a.created),
+    );
 
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
@@ -134,7 +163,8 @@ async function renderAPI(array) {
 
     const priceValue = document.createElement("p");
     priceValue.classList.add("text-2xl");
-    priceValue.innerText = "$123";
+    priceValue.innerText = sortedBids[0] ? "$" + sortedBids[0].amount : "$0";
+
     priceElement.appendChild(priceValue);
     timePriceSection.appendChild(priceElement);
 
@@ -162,3 +192,66 @@ async function renderAPI(array) {
     containerAPI.appendChild(gridElement);
   });
 }
+
+/* searchBar.onkeyup = async (event) => {
+  const searchValue = event.target.value;
+  console.log(searchValue);
+  const response = await fetch(
+    `https://v2.api.noroff.dev/auction/listings/search?q=${searchValue}&_bids=true&sort=title&sortOrder=asc`,
+  );
+
+  const json = await response.json();
+  const items = json.data;
+
+  const searchedItems = items.filter(function (item) {
+    if (item.title.toLowerCase().startsWith(searchValue)) {
+      return true;
+    }
+  });
+
+  console.log(searchedItems);
+
+  containerAPI.innerHTML = "";
+  renderAPI(searchedItems);
+}; */
+
+async function fetchAllListings(query) {
+  let allItems = [];
+  let page = 1;
+  let pageSize = 100;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await fetch(
+      `https://v2.api.noroff.dev/auction/listings/search?q=${query}&_bids=true&page=${page}&limit=${pageSize}`,
+    );
+    const json = await response.json();
+    const data = json.data;
+
+    allItems = allItems.concat(data);
+
+    if (data.length < pageSize) {
+      hasMore = false;
+    } else {
+      page++;
+    }
+  }
+
+  return allItems;
+}
+
+searchBar.onkeyup = async (event) => {
+  const searchValue = event.target.value.toLowerCase();
+  if (!searchValue) return;
+
+  showLoader();
+
+  const allListings = await fetchAllListings(searchValue);
+
+  const filtered = allListings.filter((item) =>
+    item.title.toLowerCase().startsWith(searchValue),
+  );
+
+  containerAPI.innerHTML = "";
+  renderAPI(filtered);
+};

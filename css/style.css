@@ -769,8 +769,16 @@ video {
   height: 100%;
 }
 
+.min-h-64 {
+  min-height: 16rem;
+}
+
 .min-h-\[calc\(100vh-180px\)\] {
   min-height: calc(100vh - 180px);
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .w-24 {
@@ -791,6 +799,16 @@ video {
 
 .max-w-md {
   max-width: 28rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .resize {
@@ -883,6 +901,10 @@ video {
   border-bottom-width: 1px;
 }
 
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+
 .border-r {
   border-right-width: 1px;
 }
@@ -899,6 +921,11 @@ video {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-900 {
+  --tw-border-opacity: 1;
+  border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
 }
 
 .bg-\[var\(--antique-gold\)\] {
@@ -987,6 +1014,11 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .pt-2 {
@@ -1130,6 +1162,12 @@ video {
     var(--tw-shadow);
 }
 
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+    var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate)
+    var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 :root {
   --emerald-green: #025e4c;
   --emerald-green-hover: #037561;
@@ -1182,6 +1220,21 @@ h2 {
   padding: 10px;
   left: 270px;
   bottom: 80px;
+}
+
+.loader {
+  border: 10px solid #d9d9d9;
+  border-top: 10px solid var(--emerald-green);
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .backdrop\:bg-black\/50::backdrop {
