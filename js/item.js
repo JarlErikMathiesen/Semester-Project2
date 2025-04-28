@@ -2,6 +2,7 @@ import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import { fetchHeader } from "./constants.js";
 import { isLoggedIn } from "./components/nav/navLogin.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
+import { getTimeRemaining } from "./components/time/time.js";
 
 console.log(isLoggedIn());
 
@@ -59,24 +60,6 @@ async function renderItem(object) {
 
   const imageFirst = media?.[0]?.url || "images/noimage.webp";
   const imageFirstAlt = media?.[0]?.alt;
-
-  function getTimeRemaining(endsAt) {
-    const now = new Date();
-    const endTime = new Date(endsAt);
-    const timeDiff = endTime - now;
-
-    if (timeDiff <= 0) {
-      return "Auction ended";
-    }
-
-    const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
-    const hours = Math.floor((timeDiff / 1000 / 60 / 60) % 24);
-    const days = Math.floor(timeDiff / 1000 / 60 / 60 / 24);
-
-    return days > 0
-      ? `${days} day${days > 1 ? "s" : ""} left`
-      : `${hours}h ${minutes}m left`;
-  }
 
   let days = getTimeRemaining(endsAt);
 
@@ -229,10 +212,10 @@ async function renderItem(object) {
 
       try {
         const response = await fetch(urlBid, postOptions);
-        const json = await response.json();
-        console.log(json);
+        await response.json();
+        window.location.reload();
       } catch (error) {
-        console.error("Error editing post:", error);
+        console.error("Error posting bid:", error);
       }
     });
   } else {

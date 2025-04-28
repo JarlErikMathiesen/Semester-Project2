@@ -1,17 +1,17 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 /* import { getApi, url } from "/js/components/API/fetchAPI.js"; */
 import { navBarLogStatus } from "./components/nav/navLogin.js";
+import { getTimeRemaining } from "./components/time/time.js";
 
-const url =
-  "https://v2.api.noroff.dev/auction/listings?_bids=true&_active=true&sort=title&sortOrder=asc";
+const url = `https://v2.api.noroff.dev/auction/listings?_bids=true`;
 
 const searchBar = document.querySelector("#search-bar");
+const containerAPI = document.querySelector(".api-container");
+const sortSelector = document.querySelector("#sort-options");
 
 window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
-
-const containerAPI = document.querySelector(".api-container");
 
 function showLoader() {
   containerAPI.innerHTML = `
@@ -64,24 +64,6 @@ async function renderAPI(array) {
 
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
-
-    function getTimeRemaining(endsAt) {
-      const now = new Date();
-      const endTime = new Date(endsAt);
-      const timeDiff = endTime - now;
-
-      if (timeDiff <= 0) {
-        return "Auction ended";
-      }
-
-      const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
-      const hours = Math.floor((timeDiff / 1000 / 60 / 60) % 24);
-      const days = Math.floor(timeDiff / 1000 / 60 / 60 / 24);
-
-      return days > 0
-        ? `${days} day${days > 1 ? "s" : ""} left`
-        : `${hours}h ${minutes}m left`;
-    }
 
     let days = getTimeRemaining(endsAt);
 
@@ -193,30 +175,9 @@ async function renderAPI(array) {
   });
 }
 
-/* searchBar.onkeyup = async (event) => {
-  const searchValue = event.target.value;
-  console.log(searchValue);
-  const response = await fetch(
-    `https://v2.api.noroff.dev/auction/listings/search?q=${searchValue}&_bids=true&sort=title&sortOrder=asc`,
-  );
-
-  const json = await response.json();
-  const items = json.data;
-
-  const searchedItems = items.filter(function (item) {
-    if (item.title.toLowerCase().startsWith(searchValue)) {
-      return true;
-    }
-  });
-
-  console.log(searchedItems);
-
-  containerAPI.innerHTML = "";
-  renderAPI(searchedItems);
-}; */
+let allItems = [];
 
 async function fetchAllListings(query) {
-  let allItems = [];
   let page = 1;
   let pageSize = 100;
   let hasMore = true;
@@ -255,3 +216,27 @@ searchBar.onkeyup = async (event) => {
   containerAPI.innerHTML = "";
   renderAPI(filtered);
 };
+
+sortSelector.addEventListener("change", (event) => {
+  const selectedSort = event.target.value;
+
+  let activeListing = "&_active=true";
+  const urlActive = url + activeListing;
+
+  let ascendingListing = "&sortOrder=asc";
+  const urlAscending = url + ascendingListing;
+
+  if (selectedSort === "active") {
+    getApi(urlActive);
+  } else if (selectedSort === "ascending") {
+    getApi(urlAscending);
+  } else if (selectedSort === "descending") {
+    let descendingListing = "&sortOrder=desc";
+    const urlDescending = url + descendingListing;
+    getApi(urlDescending);
+  } else if (selectedSort === "inactive") {
+    let inactiveListing = "&_active=false";
+    const urlInactive = url + inactiveListing;
+    getApi(urlInactive);
+  }
+});

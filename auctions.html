@@ -32,14 +32,30 @@
       </button>
     </header>
     <main>
-      <div class="bg-gray-400 p-8">
-        <label for="searchbar" class="mb-1 mr-4 font-medium">Search</label>
-        <input
-          type="text"
-          id="search-bar"
-          class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
-        />
-      </div>
+      <section class="filter-bar bg-gray-400 p-8 gap-10 flex font-medium">
+        <div>
+          <label for="searchbar" class="mb-1 mr-4">Search</label>
+          <input
+            type="text"
+            id="search-bar"
+            class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+          />
+        </div>
+        <div class="flex gap-4">
+          <div>Sort</div>
+          <select
+            class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+            id="sort-options"
+            name="sort-options"
+          >
+            <option value="">Choose sorting</option>
+            <option value="ascending">a-z</option>
+            <option value="descending">z-a</option>
+            <option value="active">active listings</option>
+            <option value="inactive">ended listings</option>
+          </select>
+        </div>
+      </section>
       <section class="container mx-auto px-4 py-8">
         <h1 class="col-span-full">Auctions - API</h1>
         <div
