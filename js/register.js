@@ -58,17 +58,6 @@ async function registerUser(url, data) {
 
     if (response.ok) {
       loginUser(loginUrl, { email: data.email, password: data.password });
-      /*       const appendedHtml = document.createElement("div");
-      const loginButton = document.createElement("button");
-      loginButton.classList.add("btn", "btn-primary", "m-5");
-      appendedHtml.innerText = "Registry successful";
-      loginButton.innerText = "Login";
-      loadedHtml.append(appendedHtml);
-      loadedHtml.append(loginButton);
-      modal.showModal();
-      loginButton.addEventListener("click", () => {
-        window.location.href = "index.html";
-      }); */
     } else {
       while (loadedHtml.firstChild) {
         loadedHtml.removeChild(loadedHtml.firstChild);
@@ -91,17 +80,3 @@ async function registerUser(url, data) {
 closeButton.addEventListener("click", () => {
   modal.close();
 });
-
-/* const showButton = document.querySelector("#showbutton");
-
-showButton.addEventListener("click", () => {
-  const appendedHtml = document.createElement("div");
-  const loginButton = document.createElement("button");
-  loginButton.classList.add("btn", "btn-primary", "m-5");
-  appendedHtml.innerText = "Registry successful";
-  loginButton.innerText = "Login";
-  loadedHtml.append(appendedHtml);
-  loadedHtml.append(loginButton);
-  modal.showModal();
-});
- */

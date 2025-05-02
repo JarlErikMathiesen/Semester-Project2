@@ -1,51 +1,10 @@
-import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
-/* import { getApi, url } from "/js/components/API/fetchAPI.js"; */
-import { navBarLogStatus } from "./components/nav/navLogin.js";
-import { getTimeRemaining } from "./components/time/time.js";
+import { containerAPI } from "/js/components/API/fetchAPI.js";
+import {
+  getTimeRemaining,
+  getMillisecondsRemaining,
+} from "/js/components/time/time.js";
 
-const url = `https://v2.api.noroff.dev/auction/listings?_bids=true`;
-
-const searchBar = document.querySelector("#search-bar");
-const containerAPI = document.querySelector(".api-container");
-const sortSelector = document.querySelector("#sort-options");
-
-window.addEventListener("resize", updateNavDisplay);
-
-navBarLogStatus();
-
-function showLoader() {
-  containerAPI.innerHTML = `
-    <div class="loader-container col-span-full flex justify-center items-center min-h-64">
-      <div class="loader animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-    </div>
-  `;
-}
-
-function hideLoader() {
-  containerAPI.innerHTML = "";
-}
-
-async function getApi(url) {
-  try {
-    showLoader();
-    const response = await fetch(url);
-    const json = await response.json();
-    const jsonData = json.data;
-
-    console.log(jsonData);
-
-    renderAPI(jsonData);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-getApi(url);
-
-async function renderAPI(array) {
-  console.log(array);
-
-  hideLoader();
+export async function renderAPI(array) {
   containerAPI.innerHTML = "";
 
   if (!array.length) {
@@ -65,8 +24,10 @@ async function renderAPI(array) {
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
 
-    let days = getTimeRemaining(endsAt);
+    let timeDiff = getMillisecondsRemaining(endsAt);
+    let timeLeft = getTimeRemaining(endsAt);
 
+    console.log(timeDiff);
     // Create the outer div container for the grid
     const gridElement = document.createElement("div");
     gridElement.classList.add("grid", "mb-10");
@@ -127,7 +88,7 @@ async function renderAPI(array) {
 
     const timeTextElement = document.createElement("p");
     timeTextElement.classList.add("text-base", "font-semibold");
-    timeTextElement.innerText = days;
+    timeTextElement.innerText = timeLeft;
     timeElement.appendChild(timeTextElement);
     timePriceSection.appendChild(timeElement);
 
@@ -136,7 +97,7 @@ async function renderAPI(array) {
 
     const priceLabel = document.createElement("p");
     priceLabel.classList.add("text-sm");
-    if (days === "Auction ended") {
+    if (timeLeft === "Auction ended") {
       priceLabel.innerText = "Ending bid";
     } else {
       priceLabel.innerText = "Current price";
@@ -159,7 +120,7 @@ async function renderAPI(array) {
     const bidButton = document.createElement("a");
     bidButton.href = `item.html?id=${id}`;
     bidButton.classList.add("btn", "w-full", "mt-10", "block", "text-center");
-    if (days === "Auction ended") {
+    if (timeLeft === "Auction ended") {
       bidButton.classList.add("btn-sold");
       bidButton.innerText = "Auction ended";
     } else {
@@ -174,69 +135,3 @@ async function renderAPI(array) {
     containerAPI.appendChild(gridElement);
   });
 }
-
-let allItems = [];
-
-async function fetchAllListings(query) {
-  let page = 1;
-  let pageSize = 100;
-  let hasMore = true;
-
-  while (hasMore) {
-    const response = await fetch(
-      `https://v2.api.noroff.dev/auction/listings/search?q=${query}&_bids=true&page=${page}&limit=${pageSize}`,
-    );
-    const json = await response.json();
-    const data = json.data;
-
-    allItems = allItems.concat(data);
-
-    if (data.length < pageSize) {
-      hasMore = false;
-    } else {
-      page++;
-    }
-  }
-
-  return allItems;
-}
-
-searchBar.onkeyup = async (event) => {
-  const searchValue = event.target.value.toLowerCase();
-  if (!searchValue) return;
-
-  showLoader();
-
-  const allListings = await fetchAllListings(searchValue);
-
-  const filtered = allListings.filter((item) =>
-    item.title.toLowerCase().startsWith(searchValue),
-  );
-
-  containerAPI.innerHTML = "";
-  renderAPI(filtered);
-};
-
-sortSelector.addEventListener("change", (event) => {
-  const selectedSort = event.target.value;
-
-  let activeListing = "&_active=true";
-  const urlActive = url + activeListing;
-
-  let ascendingListing = "&sortOrder=asc";
-  const urlAscending = url + ascendingListing;
-
-  if (selectedSort === "active") {
-    getApi(urlActive);
-  } else if (selectedSort === "ascending") {
-    getApi(urlAscending);
-  } else if (selectedSort === "descending") {
-    let descendingListing = "&sortOrder=desc";
-    const urlDescending = url + descendingListing;
-    getApi(urlDescending);
-  } else if (selectedSort === "inactive") {
-    let inactiveListing = "&_active=false";
-    const urlInactive = url + inactiveListing;
-    getApi(urlInactive);
-  }
-});

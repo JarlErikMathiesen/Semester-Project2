@@ -88,6 +88,7 @@ h2 {
   height: 10rem;
   animation: spin 1.5s linear infinite;
 }
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

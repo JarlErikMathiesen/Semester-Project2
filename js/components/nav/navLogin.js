@@ -13,56 +13,45 @@ export function isLoggedIn() {
   return Boolean(localStorage.getItem("accessToken"));
 }
 
-export function navBarLogStatus() {
-  const indexLinkElement = document.createElement("a");
-  indexLinkElement.href = "index.html";
-  indexLinkElement.textContent = "home";
-  navBarLogin.appendChild(indexLinkElement);
+function createNavLink(href, textContent) {
+  const link = document.createElement("a");
+  link.href = href;
+  link.textContent = textContent;
 
-  const auctionLinkElement = document.createElement("a");
-  auctionLinkElement.href = "auctions.html";
-  auctionLinkElement.textContent = "auctions";
-  navBarLogin.appendChild(auctionLinkElement);
+  const currentPage = window.location.pathname.split("/").pop();
+  const targetPage = href;
 
-  const registerLinkElement = document.createElement("a");
-  registerLinkElement.href = "register.html";
-  registerLinkElement.textContent = "register";
-  navBarLogin.appendChild(registerLinkElement);
-
-  if (isLoggedIn() === true) {
-    const logoutLinkElement = document.createElement("a");
-    logoutLinkElement.href = "#";
-    logoutLinkElement.textContent = "logout";
-    logoutLinkElement.id = "logOut";
-    navBarLogin.appendChild(logoutLinkElement);
-
-    const profileLinkElement = document.createElement("a");
-    profileLinkElement.href = "profile.html";
-    profileLinkElement.textContent = "profile";
-    navBarLogin.appendChild(profileLinkElement);
-    /* navBarLogin.innerHTML += `<a href="index.html">home</a>
-    <a href="auctions.html">auctions</a>
-    <a href="#" id="logOut">logout</a>
-    <a href="profile.html">profile</a>`; */
+  if (currentPage === targetPage) {
+    link.className = "border-b-2";
   } else {
-    const loginLinkElement = document.createElement("a");
-    loginLinkElement.href = "login.html";
-    loginLinkElement.textContent = "login";
-    navBarLogin.appendChild(loginLinkElement);
-
-    /* navBarLogin.innerHTML = `<a href="index.html">home</a>
-        <a href="auctions.html">auctions</a>
-        <a href="login.html">login</a>`; */
+    link.className = "hover:border-b-2";
   }
 
-  const logoutButton = document.querySelector("#logOut");
+  return link;
+}
 
-  if (logoutButton) {
-    logoutButton.addEventListener("click", (event) => {
+export function navBarLogStatus() {
+  navBarLogin.appendChild(createNavLink("index.html", "home"));
+  navBarLogin.appendChild(createNavLink("auctions.html", "auctions"));
+  navBarLogin.appendChild(createNavLink("register.html", "register"));
+
+  if (isLoggedIn()) {
+    navBarLogin.appendChild(createNavLink("profile.html", "profile"));
+
+    const logoutLink = document.createElement("a");
+    logoutLink.href = "#";
+    logoutLink.textContent = "logout";
+    logoutLink.id = "logOut";
+    logoutLink.className = "hover:border-b-2";
+    navBarLogin.appendChild(logoutLink);
+
+    logoutLink.addEventListener("click", (event) => {
       event.preventDefault();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userToken");
       location.reload();
     });
+  } else {
+    navBarLogin.appendChild(createNavLink("login.html", "login"));
   }
 }
