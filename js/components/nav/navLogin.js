@@ -18,13 +18,18 @@ function createNavLink(href, textContent) {
   link.href = href;
   link.textContent = textContent;
 
-  const currentPage = window.location.pathname.split("/").pop();
-  const targetPage = href;
+  let currentPath = window.location.pathname.split("/").pop();
 
-  if (currentPage === targetPage) {
-    link.className = "border-b-2";
+  if (currentPath === "") {
+    currentPath = "index.html";
+  }
+
+  const targetPath = href;
+
+  if (currentPath === targetPath) {
+    link.className = "border-b-2 border-accent text-accent";
   } else {
-    link.className = "hover:border-b-2";
+    link.className = "hover:border-b-2 hover:border-accent transition";
   }
 
   return link;
