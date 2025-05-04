@@ -41,6 +41,7 @@
             class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
           />
         </div>
+        <button id="search-button" class="btn btn-primary">Search</button>
         <div class="flex gap-4">
           <div>Sort</div>
           <select
@@ -51,19 +52,27 @@
             <option value="">Choose sorting</option>
             <option value="ascending">a-z</option>
             <option value="descending">z-a</option>
+          </select>
+        </div>
+        <div class="flex gap-4">
+          <div>Filter</div>
+          <select
+            class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+            id="filter-options"
+            name="filter-options"
+          >
+            <option value="">Choose filtering</option>
+            <option value="users-listings">your own listings</option>
             <option value="active">active listings</option>
             <option value="inactive">ended listings</option>
           </select>
         </div>
       </section>
       <section class="container mx-auto px-4 py-8">
-        <h1 class="col-span-full">Auctions - API</h1>
+        <h1 class="col-span-full">Auctions</h1>
         <div
           class="m-12 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 api-container"
         ></div>
-        <button id="loadmorebutton" class="btn btn-primary w-full">
-          Load more
-        </button>
       </section>
     </main>
     <footer class="text-white py-6 text-center">

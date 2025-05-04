@@ -1,34 +1,36 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import {
-  urlQueryParameter,
   urlActive,
   urlAscending,
   urlDescending,
   urlInactive,
+  urlLatest,
+  profileUrlListings,
 } from "./components/constants/urls.js";
 import {
   getApi,
   containerAPI,
   showLoader,
-  urlPar,
+  getApiWithToken,
 } from "/js/components/API/fetchAPI.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
 import { renderAPI } from "/js/components/cards/auctioncards.js";
 
 const searchBar = document.querySelector("#search-bar");
 const sortSelector = document.querySelector("#sort-options");
+const filterSelector = document.querySelector("#filter-options");
 
 window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
 
-getApi(urlQueryParameter, renderAPI, containerAPI);
+getApi(urlLatest, renderAPI, containerAPI);
 
 let allItems = [];
 
 async function fetchAllListings(query) {
   let page = 1;
-  let pageSize = 10;
+  let pageSize = 100;
   let hasMore = true;
 
   while (hasMore) {
@@ -50,8 +52,10 @@ async function fetchAllListings(query) {
   return allItems;
 }
 
-searchBar.onkeyup = async (event) => {
-  const searchValue = event.target.value.toLowerCase();
+const searchButton = document.querySelector("#search-button");
+
+searchButton.addEventListener("click", async () => {
+  const searchValue = searchBar.value.toLowerCase();
   if (!searchValue) return;
 
   showLoader(containerAPI);
@@ -64,20 +68,29 @@ searchBar.onkeyup = async (event) => {
 
   containerAPI.innerHTML = "";
   renderAPI(filtered);
-};
+  console.log(filtered);
+});
 
 sortSelector.addEventListener("change", (event) => {
   const selectedSort = event.target.value;
 
-  if (selectedSort === "active") {
-    getApi(urlActive, renderAPI, containerAPI);
-  } else if (selectedSort === "ascending") {
+  if (selectedSort === "ascending") {
     getApi(urlAscending, renderAPI, containerAPI);
   } else if (selectedSort === "descending") {
     getApi(urlDescending, renderAPI, containerAPI);
-  } else if (selectedSort === "inactive") {
+  }
+});
+
+filterSelector.addEventListener("change", async (event) => {
+  const selectedFilter = event.target.value;
+
+  if (selectedFilter === "users-listings") {
+    getApiWithToken(profileUrlListings, renderAPI, containerAPI);
+  } else if (selectedFilter === "active") {
+    getApi(urlActive, renderAPI, containerAPI);
+  } else if (selectedFilter === "inactive") {
     getApi(urlInactive, renderAPI, containerAPI);
   }
 });
 
-console.log(urlPar);
+console.log(urlInactive);

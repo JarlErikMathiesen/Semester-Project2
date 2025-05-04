@@ -645,6 +645,18 @@ video {
   background-color: var(--sold-gray-active);
 }
 
+.btn-delete {
+  background-color: var(--delete-red);
+}
+
+.btn-delete:hover {
+  background-color: var(--delete-red-hover);
+}
+
+.btn-delete:active {
+  background-color: var(--delete-red-active);
+}
+
 .cards {
   --tw-shadow:
     0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
@@ -787,10 +799,6 @@ video {
 
 .w-96 {
   width: 24rem;
-}
-
-.w-\[90\%\] {
-  width: 90%;
 }
 
 .w-full {
@@ -1140,10 +1148,6 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.underline {
-  text-decoration-line: underline;
-}
-
 .shadow-lg {
   --tw-shadow:
     0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -1215,6 +1219,9 @@ video {
   --sold-gray: #6d6d6d;
   --sold-gray-hover: #838383;
   --sold-gray-active: #636363;
+  --delete-red: #b3261e;
+  --delete-red-hover: #d52b1e;
+  --delete-red-active: #8e1f1a;
 }
 
 body {

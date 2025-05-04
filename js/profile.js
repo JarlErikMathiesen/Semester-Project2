@@ -1,5 +1,14 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
+import { profileName, API_KEY, token } from "/js/constants.js";
+import { profileUrl, profileUrlListings } from "./components/constants/urls.js";
+import {
+  containerAPI,
+  getApiWithToken,
+  methodWithToken,
+  fetchHeader,
+} from "/js/components/API/fetchAPI.js";
+import { renderAPI } from "/js/components/cards/auctioncards.js";
 
 window.addEventListener("resize", updateNavDisplay);
 
@@ -7,39 +16,10 @@ updateNavDisplay();
 
 navBarLogStatus();
 
-const API_KEY = "a5f097d9-248c-4c77-b031-072c2064a6a3";
-
-const token = localStorage.getItem("accessToken");
-
-const profileName = localStorage.getItem("userToken");
-
 console.log(profileName);
-
-const profilesUrl = `https://v2.api.noroff.dev/auction/profiles`;
-
-const profileUrl = `https://v2.api.noroff.dev/auction/profiles/${profileName}`;
-
-console.log(profilesUrl);
-
-const fetchHeader = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${token}`,
-  "X-Noroff-API-Key": API_KEY,
-};
-
-async function methodWithToken(url, fetchOptions) {
-  try {
-    const response = await fetch(url, fetchOptions);
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 async function getProfileWithToken(url) {
   try {
-    const token = localStorage.getItem("accessToken");
     const getData = {
       method: "GET",
       headers: {
@@ -81,7 +61,7 @@ function renderProfile(object) {
   profileSection.className = "shadow-xl rounded-md p-6 mb-6";
 
   const profileHeading = document.createElement("h1");
-  profileHeading.className = "text-xl font-semibold mb-4";
+  profileHeading.className = "mb-4";
   profileHeading.textContent = "Profile";
   profileSection.appendChild(profileHeading);
 
@@ -210,13 +190,6 @@ function renderProfile(object) {
   <textarea id="description" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]" required></textarea>`;
   form.appendChild(descriptionField);
 
-  const askPriceField = document.createElement("div");
-  askPriceField.className = "mb-4";
-  askPriceField.innerHTML = `
-  <label for="ask-price" class="block mb-1 font-medium">Ask Price</label>
-  <input type="text" id="ask-price" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]" required>`;
-  form.appendChild(askPriceField);
-
   const deadlineField = document.createElement("div");
   deadlineField.className = "mb-6";
   deadlineField.innerHTML = `
@@ -289,9 +262,4 @@ function renderProfile(object) {
   loadedProfile.appendChild(listingSection);
 }
 
-/* await methodWithToken(
-  "https://v2.api.noroff.dev/auction/listings",
-  postOptions,
-);
-console.log(json);
- */
+getApiWithToken(profileUrlListings, renderAPI, containerAPI);

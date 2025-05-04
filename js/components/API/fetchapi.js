@@ -1,13 +1,8 @@
+import { API_KEY, token } from "/js/constants.js";
+
 export const url = "https://v2.api.noroff.dev/auction/listings";
 
 export const urlPar = new URLSearchParams(document.location.search);
-const id = urlPar.get("id");
-
-const queryParameter = "?_bids=true&_seller=true";
-
-export const urlId = url + "/" + id;
-export const urlIdQueryParameter = urlId + queryParameter;
-export const urlQueryParameter = url + queryParameter;
 
 export const containerAPI = document.querySelector(".api-container");
 export const containerItem = document.querySelector(".item-container");
@@ -38,3 +33,46 @@ export async function getApi(url, renderFunction, container) {
     console.log(error);
   }
 }
+
+export async function getApiWithToken(url, renderFunction, container) {
+  try {
+    showLoader(container);
+    const getData = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        "X-Noroff-API-Key": API_KEY,
+      },
+    };
+    const response = await fetch(url, getData);
+    const json = await response.json();
+    const jsonData = json.data;
+
+    console.log(jsonData);
+    renderFunction(jsonData);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function methodWithToken(url, fetchOptions) {
+  try {
+    const response = await fetch(url, fetchOptions);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const fetchHeader = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+  "X-Noroff-API-Key": API_KEY,
+};
+
+export const deleteOptions = {
+  method: "DELETE",
+  headers: fetchHeader,
+};

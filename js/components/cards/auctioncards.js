@@ -1,8 +1,6 @@
 import { containerAPI } from "/js/components/API/fetchAPI.js";
-import {
-  getTimeRemaining,
-  getMillisecondsRemaining,
-} from "/js/components/time/time.js";
+import { getTimeRemaining } from "/js/components/time/time.js";
+import { userListing, profileName } from "../../constants.js";
 
 export async function renderAPI(array) {
   containerAPI.innerHTML = "";
@@ -15,24 +13,23 @@ export async function renderAPI(array) {
   const items = array;
 
   items.forEach((item) => {
-    const { title, endsAt, media, id, bids } = item;
+    const { title, endsAt, media, id, bids, seller } = item;
 
     const sortedBids = bids.sort(
       (a, b) => new Date(b.created) - new Date(a.created),
     );
 
+    const sellerName = seller?.name || "no name";
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
+    const isUserListing = userListing(profileName, sellerName);
+    console.log(sellerName);
 
-    let timeDiff = getMillisecondsRemaining(endsAt);
     let timeLeft = getTimeRemaining(endsAt);
 
-    console.log(timeDiff);
-    // Create the outer div container for the grid
     const gridElement = document.createElement("div");
     gridElement.classList.add("grid", "mb-10");
 
-    // Create the main card div
     const cardElement = document.createElement("div");
     cardElement.classList.add(
       "grid",
@@ -42,7 +39,6 @@ export async function renderAPI(array) {
     );
     gridElement.appendChild(cardElement);
 
-    // Create the image container
     const imageContainer = document.createElement("div");
     imageContainer.classList.add(
       "w-full",
@@ -63,7 +59,6 @@ export async function renderAPI(array) {
     imageContainer.appendChild(imageElement);
     cardElement.appendChild(imageContainer);
 
-    // Create the body of the card
     const cardBodyElement = document.createElement("div");
     cardBodyElement.classList.add(
       "p-4",
@@ -73,13 +68,11 @@ export async function renderAPI(array) {
     );
     cardElement.appendChild(cardBodyElement);
 
-    // Create the title
     const titleElement = document.createElement("h3");
     titleElement.classList.add("truncate", "font-bold", "border-b");
     titleElement.innerText = title;
     cardBodyElement.appendChild(titleElement);
 
-    // Create the time and price section
     const timePriceSection = document.createElement("div");
     timePriceSection.classList.add("grid", "grid-flow-col", "pt-2");
 
@@ -113,14 +106,16 @@ export async function renderAPI(array) {
 
     cardBodyElement.appendChild(timePriceSection);
 
-    // Create the bid button
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("col-span-full");
 
     const bidButton = document.createElement("a");
     bidButton.href = `item.html?id=${id}`;
     bidButton.classList.add("btn", "w-full", "mt-10", "block", "text-center");
-    if (timeLeft === "Auction ended") {
+    if (isUserListing) {
+      bidButton.classList.add("btn-primary");
+      bidButton.textContent = "Edit listing";
+    } else if (timeLeft === "Auction ended") {
       bidButton.classList.add("btn-sold");
       bidButton.innerText = "Auction ended";
     } else {
@@ -131,7 +126,6 @@ export async function renderAPI(array) {
     buttonContainer.appendChild(bidButton);
     cardBodyElement.appendChild(buttonContainer);
 
-    // Append the grid element to the container
     containerAPI.appendChild(gridElement);
   });
 }
