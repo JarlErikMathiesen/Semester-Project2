@@ -2,10 +2,10 @@ import { API_KEY, token } from "/js/constants.js";
 
 export const url = "https://v2.api.noroff.dev/auction/listings";
 
-export const urlPar = new URLSearchParams(document.location.search);
-
 export const containerAPI = document.querySelector(".api-container");
 export const containerItem = document.querySelector(".item-container");
+export const loadedProfile = document.querySelector(".loaded-profile");
+export const containerCredit = document.querySelector(".credit-container");
 
 export function showLoader(container) {
   container.innerHTML = `
@@ -19,16 +19,35 @@ export function hideLoader(container) {
   container.innerHTML = "";
 }
 
-export async function getApi(url, renderFunction, container) {
-  try {
-    showLoader(container);
-    const response = await fetch(url);
-    const json = await response.json();
-    const jsonData = json.data;
+export const fetchHeader = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+  "X-Noroff-API-Key": API_KEY,
+};
 
+export function createOptions(method, data) {
+  const options = {
+    method,
+    headers: fetchHeader,
+  };
+
+  if ((method === "PUT" || method === "POST") && data) {
+    options.body = JSON.stringify(data);
+  }
+
+  return options;
+}
+
+export const getOptions = createOptions("GET");
+export const deleteOptions = createOptions("DELETE");
+
+export async function methodWithToken(url, fetchOptions) {
+  try {
+    const response = await fetch(url, fetchOptions);
+    const json = await response.json();
+    const jsonData = "data" in json ? json.data : json;
     console.log(jsonData);
-    hideLoader(container);
-    renderFunction(jsonData);
+    return json;
   } catch (error) {
     console.log(error);
   }
@@ -37,42 +56,13 @@ export async function getApi(url, renderFunction, container) {
 export async function getApiWithToken(url, renderFunction, container) {
   try {
     showLoader(container);
-    const getData = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        "X-Noroff-API-Key": API_KEY,
-      },
-    };
-    const response = await fetch(url, getData);
+    const response = await fetch(url, getOptions);
     const json = await response.json();
-    const jsonData = json.data;
-
+    const jsonData = "data" in json ? json.data : json;
+    hideLoader(container);
     console.log(jsonData);
     renderFunction(jsonData);
   } catch (error) {
     console.log(error);
   }
 }
-
-export async function methodWithToken(url, fetchOptions) {
-  try {
-    const response = await fetch(url, fetchOptions);
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const fetchHeader = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${token}`,
-  "X-Noroff-API-Key": API_KEY,
-};
-
-export const deleteOptions = {
-  method: "DELETE",
-  headers: fetchHeader,
-};

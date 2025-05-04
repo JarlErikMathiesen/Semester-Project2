@@ -1,7 +1,8 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
-import { getApi, containerAPI } from "/js/components/API/fetchAPI.js";
+import { containerAPI } from "/js/components/API/fetchAPI.js";
 import { renderAPI } from "/js/components/cards/auctioncards.js";
+import { getApiWithToken } from "./components/API/fetchapi.js";
 
 window.addEventListener("resize", updateNavDisplay);
 
@@ -16,7 +17,7 @@ const queryParameter =
 
 const urlQueryParameter = url + queryParameter;
 
-getApi(urlQueryParameter, renderSoonestEnding, containerAPI);
+getApiWithToken(urlQueryParameter, renderSoonestEnding, containerAPI);
 
 function renderSoonestEnding(listings) {
   const now = new Date();

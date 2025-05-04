@@ -1356,6 +1356,10 @@ h2 {
 }
 
 @media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none;
+  }
+
   .lg\:h-96 {
     height: 24rem;
   }

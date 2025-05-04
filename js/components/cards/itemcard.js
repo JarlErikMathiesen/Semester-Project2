@@ -4,7 +4,7 @@ import {
   containerItem,
   methodWithToken,
   deleteOptions,
-  fetchHeader,
+  createOptions,
 } from "/js/components/API/fetchAPI.js";
 import { userListing, profileName } from "../../constants.js";
 import { urlId } from "/js/components/constants/urls.js";
@@ -294,29 +294,20 @@ export async function renderItem(object) {
             }),
           };
 
-          const putOptions = {
-            method: "PUT",
-            headers: fetchHeader,
-            body: JSON.stringify(data),
-          };
+          const putOptions = createOptions("PUT", data);
 
           try {
             await methodWithToken(urlId, putOptions);
-            /* location.reload(); */
+            location.reload();
           } catch (error) {
             console.error("Error editing post:", error);
           }
         });
 
-        /* const deleteOptions = {
-          method: "DELETE",
-          headers: fetchHeader,
-        }; */
-
         deleteButton.addEventListener("click", async function () {
           try {
             await methodWithToken(urlId, deleteOptions);
-            location.reload();
+            window.location.href = "auctions.html";
           } catch (error) {
             console.error("Error editing post:", error);
           }
@@ -336,11 +327,7 @@ export async function renderItem(object) {
         ...(bidNumber !== "" && { amount: bidNumber }),
       };
       console.log(bidNumber);
-      const postOptions = {
-        method: "POST",
-        headers: fetchHeader,
-        body: JSON.stringify(data),
-      };
+      const postOptions = createOptions("POST", data);
 
       try {
         const response = await fetch(urlBid, postOptions);

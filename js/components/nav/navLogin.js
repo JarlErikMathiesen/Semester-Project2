@@ -1,9 +1,8 @@
-import { token } from "../../constants.js";
 import { updateNavDisplay } from "./hamburgermenu.js";
+import { methodWithToken, getOptions } from "/js/components/API/fetchAPI.js";
+import { profileUrl } from "/js/components/constants/urls.js";
 
 const navBarLogin = document.querySelector(".nav-header");
-
-console.log(token);
 
 updateNavDisplay();
 
@@ -42,6 +41,28 @@ export function navBarLogStatus() {
 
   if (isLoggedIn()) {
     navBarLogin.appendChild(createNavLink("profile.html", "profile"));
+
+    async function renderCreditsInNav(url, fetchOptions) {
+      const json = await methodWithToken(url, fetchOptions);
+
+      const item = json.data;
+
+      console.log(item);
+
+      const { credits } = item;
+
+      console.log(credits);
+
+      const creditsDiv = document.createElement("div");
+      creditsDiv.className =
+        "cards text-white bg-[var(--antique-gold)] rounded-full px-4 py-1 text-lg";
+      creditsDiv.textContent = `Credits: ${credits}`;
+      navBarLogin.appendChild(creditsDiv);
+    }
+
+    renderCreditsInNav(profileUrl, getOptions);
+
+    /* getApiWithToken(profileUrl, renderCreditsInNav, containerCredit); */
 
     const logoutLink = document.createElement("a");
     logoutLink.href = "#";

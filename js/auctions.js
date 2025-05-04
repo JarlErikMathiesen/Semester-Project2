@@ -8,7 +8,6 @@ import {
   profileUrlListings,
 } from "./components/constants/urls.js";
 import {
-  getApi,
   containerAPI,
   showLoader,
   getApiWithToken,
@@ -24,7 +23,7 @@ window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
 
-getApi(urlLatest, renderAPI, containerAPI);
+getApiWithToken(urlLatest, renderAPI, containerAPI);
 
 let allItems = [];
 
@@ -75,9 +74,9 @@ sortSelector.addEventListener("change", (event) => {
   const selectedSort = event.target.value;
 
   if (selectedSort === "ascending") {
-    getApi(urlAscending, renderAPI, containerAPI);
+    getApiWithToken(urlAscending, renderAPI, containerAPI);
   } else if (selectedSort === "descending") {
-    getApi(urlDescending, renderAPI, containerAPI);
+    getApiWithToken(urlDescending, renderAPI, containerAPI);
   }
 });
 
@@ -87,9 +86,9 @@ filterSelector.addEventListener("change", async (event) => {
   if (selectedFilter === "users-listings") {
     getApiWithToken(profileUrlListings, renderAPI, containerAPI);
   } else if (selectedFilter === "active") {
-    getApi(urlActive, renderAPI, containerAPI);
+    getApiWithToken(urlActive, renderAPI, containerAPI);
   } else if (selectedFilter === "inactive") {
-    getApi(urlInactive, renderAPI, containerAPI);
+    getApiWithToken(urlInactive, renderAPI, containerAPI);
   }
 });
 
