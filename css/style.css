@@ -721,10 +721,6 @@ video {
   margin-right: 0.5rem;
 }
 
-.mr-4 {
-  margin-right: 1rem;
-}
-
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -875,16 +871,16 @@ video {
   gap: 2.5rem;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-4 {
   gap: 1rem;
 }
 
 .gap-6 {
   gap: 1.5rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
 }
 
 .self-center {
@@ -1097,10 +1093,6 @@ video {
 
 .font-extralight {
   font-weight: 200;
-}
-
-.font-light {
-  font-weight: 300;
 }
 
 .font-medium {
@@ -1339,10 +1331,6 @@ h2 {
 }
 
 @media (min-width: 640px) {
-  .sm\:mb-0 {
-    margin-bottom: 0px;
-  }
-
   .sm\:h-72 {
     height: 18rem;
   }

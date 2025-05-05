@@ -45,7 +45,7 @@ export function navBarLogStatus() {
     async function renderCreditsInNav(url, fetchOptions) {
       const json = await methodWithToken(url, fetchOptions);
 
-      const item = json.data;
+      const item = json;
 
       const { credits } = item;
 
