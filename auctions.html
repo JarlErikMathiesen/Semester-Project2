@@ -32,20 +32,28 @@
       </button>
     </header>
     <main>
-      <section class="filter-bar bg-gray-400 p-8 gap-10 flex font-medium">
-        <div>
-          <label for="searchbar" class="mb-1 mr-4">Search</label>
+      <section
+        class="filter-bar bg-gray-400 p-8 gap-6 flex flex-col sm:flex-row flex-wrap items-stretch font-medium"
+      >
+        <div
+          class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto"
+        >
+          <label for="search-bar">Search</label>
           <input
             type="text"
             id="search-bar"
-            class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+            class="w-full sm:w-64 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
           />
         </div>
-        <button id="search-button" class="btn btn-primary">Search</button>
-        <div class="flex gap-4">
-          <div>Sort</div>
+        <button id="search-button" class="btn btn-primary w-full sm:w-auto">
+          Search
+        </button>
+        <div
+          class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto"
+        >
+          <label for="sort-options">Sort</label>
           <select
-            class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+            class="w-full sm:w-48 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
             id="sort-options"
             name="sort-options"
           >
@@ -54,10 +62,12 @@
             <option value="descending">z-a</option>
           </select>
         </div>
-        <div class="flex gap-4">
-          <div>Filter</div>
+        <div
+          class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto"
+        >
+          <label for="filter-options">Filter</label>
           <select
-            class="border border-gray-300 rounded-md cols-span focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
+            class="w-full sm:w-48 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--emerald-green)]"
             id="filter-options"
             name="filter-options"
           >

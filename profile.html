@@ -33,11 +33,13 @@
     </header>
 
     <main
-      class="flex flex-col items-center justify-start py-8 px-4 min-h-[calc(100vh-180px)]"
+      class="flex flex-col justify-start py-8 px-4 min-h-[calc(100vh-180px)]"
     >
-      <section class="loaded-profile max-w-md w-full"></section>
-      <h2>Your listed items</h2>
-      <div class="api-container"></div>
+      <section class="loaded-profile self-center max-w-md w-full"></section>
+      <h2 class="mt-10 self-center">Your listed items</h2>
+      <div
+        class="api-container m-12 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"
+      ></div>
     </main>
 
     <footer class="text-white py-6 text-center">

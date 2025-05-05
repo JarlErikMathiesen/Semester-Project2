@@ -11,12 +11,6 @@ window.addEventListener("resize", updateNavDisplay);
 const API_BASE_URL = "https://v2.api.noroff.dev";
 const registerUrl = `${API_BASE_URL}/auth/register`;
 
-/* const user = {
-  name: "test_account_i",
-  email: "test-account-i@noroff.no",
-  password: "my-password",
-}; */
-
 const userName = document.querySelector("#fullname");
 const userEmail = document.querySelector("#email");
 const userPassword = document.querySelector("#password");
