@@ -1,6 +1,4 @@
-const API_KEY = "a5f097d9-248c-4c77-b031-072c2064a6a3";
-const API_BASE_URL = "https://v2.api.noroff.dev";
-export const loginUrl = API_BASE_URL + "/auth/login";
+import { API_KEY } from "/js/components/constants/constants.js";
 
 const loadedHtml = document.querySelector("#loaded-html");
 const closeButton = document.querySelector("#data-close-modal");
@@ -24,15 +22,11 @@ export async function loginUser(url, userData) {
       const userToken = json.data.name;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userToken", userToken);
-      console.log(json);
-      console.log(json.data.accessToken);
-      console.log(json.data.name);
       window.location.href = "profile.html";
     } else {
       while (loadedHtml.firstChild) {
         loadedHtml.removeChild(loadedHtml.firstChild);
       }
-      console.log(json);
       json.errors.forEach((error) => {
         console.log(error.message);
         const appendedHtml = document.createElement("div");

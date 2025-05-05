@@ -1,4 +1,8 @@
-import { profileName } from "/js/constants.js";
+import { profileName } from "/js/components/constants/constants.js";
+
+const API_BASE_URL = "https://v2.api.noroff.dev";
+export const loginUrl = API_BASE_URL + "/auth/login";
+export const registerUrl = API_BASE_URL + "/auth/register";
 
 export const url = "https://v2.api.noroff.dev/auction/listings";
 
@@ -15,17 +19,17 @@ export const profileUrl = `https://v2.api.noroff.dev/auction/profiles/${profileN
 export const profileUrlListings =
   profileUrl + "/listings/?_bids=true&_seller=true";
 
-let latestListing = "&sort=created&sortOrder=desc";
+const latestListing = "&sort=created&sortOrder=desc";
 export const urlLatest = urlQueryParameter + latestListing;
 
-let activeListing = "&_active=true&sort=created&sortOrder=desc";
+const activeListing = "&_active=true&sort=created&sortOrder=desc";
 export const urlActive = urlQueryParameter + activeListing;
 
-let ascendingListing = "&sortOrder=asc";
+const ascendingListing = "&sortOrder=asc";
 export const urlAscending = urlQueryParameter + ascendingListing;
 
-let descendingListing = "&sortOrder=desc";
+const descendingListing = "&sortOrder=desc";
 export const urlDescending = urlQueryParameter + descendingListing;
 
-let inactiveListing = "&_active=false&sort=created&sortOrder=desc";
+const inactiveListing = "&_active=false&sort=created&sortOrder=desc";
 export const urlInactive = urlQueryParameter + inactiveListing;

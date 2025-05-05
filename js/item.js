@@ -10,6 +10,4 @@ window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
 
-console.log(urlIdQueryParameter);
-
 getApiWithToken(urlIdQueryParameter, renderItem, containerItem);

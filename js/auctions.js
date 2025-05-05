@@ -67,7 +67,6 @@ searchButton.addEventListener("click", async () => {
 
   containerAPI.innerHTML = "";
   renderAPI(filtered);
-  console.log(filtered);
 });
 
 sortSelector.addEventListener("change", (event) => {
@@ -91,5 +90,3 @@ filterSelector.addEventListener("change", async (event) => {
     getApiWithToken(urlInactive, renderAPI, containerAPI);
   }
 });
-
-console.log(urlInactive);

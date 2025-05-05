@@ -1,6 +1,9 @@
 import { containerAPI } from "/js/components/API/fetchAPI.js";
 import { getTimeRemaining } from "/js/components/time/time.js";
-import { userListing, profileName } from "../../constants.js";
+import {
+  userListing,
+  profileName,
+} from "/js/components/constants/constants.js";
 
 export async function renderAPI(array) {
   containerAPI.innerHTML = "";
@@ -23,7 +26,6 @@ export async function renderAPI(array) {
     const imageFirst = media?.[0]?.url || "images/noimage.webp";
     const imageFirstAlt = media?.[0]?.alt;
     const isUserListing = userListing(profileName, sellerName);
-    console.log(sellerName);
 
     let timeLeft = getTimeRemaining(endsAt);
 

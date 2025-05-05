@@ -1,6 +1,5 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
-import { profileName } from "/js/constants.js";
 import {
   profileUrl,
   profileUrlListings,
@@ -18,8 +17,6 @@ window.addEventListener("resize", updateNavDisplay);
 updateNavDisplay();
 
 navBarLogStatus();
-
-console.log(profileName);
 
 getApiWithToken(profileUrl, renderProfile, loadedProfile);
 

@@ -8,16 +8,12 @@ import { profileUrl } from "/js/components/constants/urls.js";
 export function renderProfile(object) {
   const item = object;
 
-  console.log(item);
-
   const {
     avatar: { url, alt },
     name,
     credits,
     email,
   } = item;
-
-  console.log(url, alt, name, credits, email);
 
   const profileSection = document.createElement("div");
   profileSection.className = "shadow-xl rounded-md p-6 mb-6";
@@ -79,7 +75,6 @@ export function renderProfile(object) {
 
       submitButton.addEventListener("click", async function () {
         const newAvatarUrl = avatarInput.value;
-        console.log("New Avatar URL:", newAvatarUrl);
 
         let data = {
           ...(newAvatarUrl !== "" && {
@@ -178,8 +173,6 @@ export function renderProfile(object) {
     const newListingImage = imageUrlField.querySelector("#image-url").value;
 
     event.preventDefault();
-    console.log(newListingTitle);
-    console.log(deadlineValue);
 
     let data = {
       ...(newListingTitle !== "" && {
@@ -196,7 +189,6 @@ export function renderProfile(object) {
       }),
     };
 
-    console.log(data);
     const postOptions = createOptions("POST", data);
 
     try {

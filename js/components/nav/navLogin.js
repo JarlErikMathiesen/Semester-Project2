@@ -47,11 +47,7 @@ export function navBarLogStatus() {
 
       const item = json.data;
 
-      console.log(item);
-
       const { credits } = item;
-
-      console.log(credits);
 
       const creditsDiv = document.createElement("div");
       creditsDiv.className =
@@ -61,8 +57,6 @@ export function navBarLogStatus() {
     }
 
     renderCreditsInNav(profileUrl, getOptions);
-
-    /* getApiWithToken(profileUrl, renderCreditsInNav, containerCredit); */
 
     const logoutLink = document.createElement("a");
     logoutLink.href = "#";

@@ -1,18 +1,13 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
-import { loginUser, loginUrl } from "./loginUser.js";
+import { loginUser } from "./loginUser.js";
+import { loginUrl } from "/js/components/constants/urls.js";
 
 updateNavDisplay();
 
 window.addEventListener("resize", updateNavDisplay);
 
 navBarLogStatus();
-
-/* const userToLogin = {
-  name: "test_account_f",
-  email: "test-account-f@noroff.no",
-  password: "my-password",
-}; */
 
 const formButton = document.querySelector("#form-button");
 

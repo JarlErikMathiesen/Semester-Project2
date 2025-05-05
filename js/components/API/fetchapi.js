@@ -1,4 +1,4 @@
-import { API_KEY, token } from "/js/constants.js";
+import { API_KEY, token } from "/js/components/constants/constants.js";
 
 export const url = "https://v2.api.noroff.dev/auction/listings";
 
@@ -46,8 +46,8 @@ export async function methodWithToken(url, fetchOptions) {
     const response = await fetch(url, fetchOptions);
     const json = await response.json();
     const jsonData = "data" in json ? json.data : json;
-    console.log(jsonData);
-    return json;
+
+    return jsonData;
   } catch (error) {
     console.log(error);
   }
@@ -60,7 +60,7 @@ export async function getApiWithToken(url, renderFunction, container) {
     const json = await response.json();
     const jsonData = "data" in json ? json.data : json;
     hideLoader(container);
-    console.log(jsonData);
+
     renderFunction(jsonData);
   } catch (error) {
     console.log(error);

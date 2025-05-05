@@ -6,7 +6,10 @@ import {
   deleteOptions,
   createOptions,
 } from "/js/components/API/fetchAPI.js";
-import { userListing, profileName } from "../../constants.js";
+import {
+  userListing,
+  profileName,
+} from "/js/components/constants/constants.js";
 import { urlId } from "/js/components/constants/urls.js";
 
 export async function renderItem(object) {
@@ -26,12 +29,6 @@ export async function renderItem(object) {
   const sellerName = seller?.name || "no name";
 
   let timeLeft = getTimeRemaining(endsAt);
-
-  console.log(title);
-  console.log(sellerName);
-  console.log(profileName);
-  console.log(userListing(profileName, sellerName));
-  console.log(urlId);
 
   const isUserListing = userListing(profileName, sellerName);
 
@@ -272,12 +269,6 @@ export async function renderItem(object) {
             deadlineInput.value,
           ).toISOString();
           const editedListingImage = imageInput.value;
-          console.log("Edited values:", {
-            editedListingTitle,
-            editedListingDescription,
-            editedDeadlineValue,
-            editedListingImage,
-          });
 
           let data = {
             ...(editedListingTitle !== "" && {
@@ -326,7 +317,6 @@ export async function renderItem(object) {
       let data = {
         ...(bidNumber !== "" && { amount: bidNumber }),
       };
-      console.log(bidNumber);
       const postOptions = createOptions("POST", data);
 
       try {
@@ -358,8 +348,6 @@ export async function renderItem(object) {
   }
 
   const urlBid = urlId + "/bids";
-
-  console.log(urlBid);
 
   const descriptionElement = document.createElement("div");
   descriptionElement.classList.add("border-t", "pt-4");

@@ -1,15 +1,13 @@
 import { updateNavDisplay } from "/js/components/nav/hamburgermenu.js";
-import { loginUser, loginUrl } from "./loginUser.js";
+import { loginUser } from "./loginUser.js";
 import { navBarLogStatus } from "./components/nav/navLogin.js";
+import { loginUrl, registerUrl } from "/js/components/constants/urls.js";
 
 updateNavDisplay();
 
 navBarLogStatus();
 
 window.addEventListener("resize", updateNavDisplay);
-
-const API_BASE_URL = "https://v2.api.noroff.dev";
-const registerUrl = `${API_BASE_URL}/auth/register`;
 
 const userName = document.querySelector("#fullname");
 const userEmail = document.querySelector("#email");
@@ -46,9 +44,8 @@ async function registerUser(url, data) {
     };
 
     const response = await fetch(url, postData);
-    console.log(response);
+
     const json = await response.json();
-    console.log(json);
 
     if (response.ok) {
       loginUser(loginUrl, { email: data.email, password: data.password });
@@ -65,7 +62,6 @@ async function registerUser(url, data) {
         modal.showModal();
       });
     }
-    console.log(json);
   } catch (error) {
     console.log(error);
   }

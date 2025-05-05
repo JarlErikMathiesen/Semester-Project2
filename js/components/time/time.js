@@ -6,9 +6,6 @@ export function getMillisecondsRemaining(endsAt) {
 }
 
 export function getTimeRemaining(endsAt) {
-  /* const now = new Date();
-  const endTime = new Date(endsAt); */
-
   const timeDiff = getMillisecondsRemaining(endsAt);
 
   if (timeDiff <= 0) {
