@@ -5,13 +5,14 @@
 ## Features
 
 - User registration and login (restricted to `@noroff.no` and `@stud.noroff.no` emails)
-- Avatar upload and profile management
-- View and manage user credit
-- Create listings with title, description, images, and deadline
-- Bid on other users’ listings
-- View bids placed on your own listings
 - Search functionality for browsing listings
 - Fully responsive, accessible design
+### Logged in users can:
+- Avatar upload and profile management
+- User can view and spend credit
+- Create listings with title, description, images, and deadline
+- Bid on other users’ listings
+- View bids placed on your own and others listings
 
 ## Live Demo
 
@@ -22,11 +23,12 @@ Try the live version here:
 
 - **HTML5**
 - **Tailwind CSS**
-- **JavaScript (ES Modules)**
+- **JavaScript**
 - **REST API** (Noroff Auction API)
 - **Git** and **GitHub Projects**
-- **Trello** (for planning)
+- **Trello**
 - **VS Code**
+- **Figma** 
 
 ## Getting Started
 
