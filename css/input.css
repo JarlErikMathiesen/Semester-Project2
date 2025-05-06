@@ -15,9 +15,9 @@
   --sold-gray-hover: #838383;
   --sold-gray-active: #636363;
 
-  --delete-red: #b3261e;
-  --delete-red-hover: #d52b1e;
-  --delete-red-active: #8e1f1a;
+  --danger-red: #b3261e;
+  --danger-red-hover: #d52b1e;
+  --danger-red-active: #8e1f1a;
 }
 
 @layer components {
@@ -37,8 +37,8 @@
     @apply bg-[var(--sold-gray)]  hover:bg-[var(--sold-gray-hover)] active:bg-[var(--sold-gray-active)];
   }
 
-  .btn-delete {
-    @apply bg-[var(--delete-red)]  hover:bg-[var(--delete-red-hover)] active:bg-[var(--delete-red-active)];
+  .btn-danger {
+    @apply bg-[var(--danger-red)]  hover:bg-[var(--danger-red-hover)] active:bg-[var(--danger-red-active)];
   }
 
   .cards {

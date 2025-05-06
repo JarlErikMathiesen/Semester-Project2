@@ -240,7 +240,7 @@ export async function renderItem(object) {
         const deleteButton = document.createElement("button");
         deleteButton.id = "deleteButton";
         deleteButton.textContent = "Delete";
-        deleteButton.className = "btn btn-delete mt-2";
+        deleteButton.className = "btn btn-danger mt-2";
 
         formWrapper.appendChild(titleLabel);
         formWrapper.appendChild(titleInput);

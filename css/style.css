@@ -645,16 +645,16 @@ video {
   background-color: var(--sold-gray-active);
 }
 
-.btn-delete {
-  background-color: var(--delete-red);
+.btn-danger {
+  background-color: var(--danger-red);
 }
 
-.btn-delete:hover {
-  background-color: var(--delete-red-hover);
+.btn-danger:hover {
+  background-color: var(--danger-red-hover);
 }
 
-.btn-delete:active {
-  background-color: var(--delete-red-active);
+.btn-danger:active {
+  background-color: var(--danger-red-active);
 }
 
 .cards {
@@ -1222,9 +1222,9 @@ video {
   --sold-gray: #6d6d6d;
   --sold-gray-hover: #838383;
   --sold-gray-active: #636363;
-  --delete-red: #b3261e;
-  --delete-red-hover: #d52b1e;
-  --delete-red-active: #8e1f1a;
+  --danger-red: #b3261e;
+  --danger-red-hover: #d52b1e;
+  --danger-red-active: #8e1f1a;
 }
 
 body {
