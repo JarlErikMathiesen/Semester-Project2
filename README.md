@@ -43,8 +43,8 @@ Make sure you have the following installed:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/nexus-auction-site.git
-    cd nexus-auction-site
+git clone https://github.com/JarlErikMathiesen/Semester-Project2.git
+cd Semester-Project2
     ```
 
 2. Install dependencies:
