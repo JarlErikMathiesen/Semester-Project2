@@ -4,7 +4,7 @@
 
 ## Features
 
-- User registration and login (restricted to `@stud.noroff.no` emails)
+- User registration and login (restricted to `@noroff.no` and `@stud.noroff.no` emails)
 - Avatar upload and profile management
 - View and manage user credit
 - Create listings with title, description, images, and deadline
