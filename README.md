@@ -1,5 +1,7 @@
 # Semester-Project2
 
+![image](https://www.jarlerm.no/wp-content/uploads/2026/06/Screenshot-2026-05-16-131720.png)
+
 **Nexus** is a modern online auction platform developed as part of a frontend development course. It allows users to register, create and bid on listings, update their profiles, and explore active auctions in an elegant, responsive interface.
 
 ## Features
